@@ -7,10 +7,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
+
 namespace WorkforceManagementSoftware
 {
+   
     public partial class SiteMaster : MasterPage
     {
+        public string variable { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
@@ -24,9 +28,9 @@ namespace WorkforceManagementSoftware
                 {
                     while (reader.Read())
                     {
+                        variable = (reader["ID"].ToString());
                         Response.Write(reader["ID"].ToString());
-                        Response.Write("test");
-                    
+
                     }
                 }
             }

@@ -62,7 +62,9 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET daj sdas vise test višnja</p>
+                
+                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET daj sdas vise test višnjaa</p>
+                <p><%=variable %></p>
             </footer>
         </div>
 
