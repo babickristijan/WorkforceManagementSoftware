@@ -14,10 +14,10 @@ namespace WorkforceManagementSoftware
    
     public partial class SiteMaster : MasterPage
     {
-        public string variable { get; set; }
+        //public string variable { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+       /*     string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             if (ConfigurationManager.ConnectionStrings["myConnectionString"] != null)
                 Response.Write("postoji koonekcija");
             using (SqlConnection connection = new SqlConnection(connStr))
@@ -35,7 +35,7 @@ namespace WorkforceManagementSoftware
                 }
             }
 
-
+            */
         }
     }
 }

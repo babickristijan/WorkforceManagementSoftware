@@ -14,6 +14,10 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    
+    <link href="~/Scripts/fullcalendar.min.css" rel="stylesheet">
+    <link href="~/Scripts/fullcalendar.print.min.css" rel="stylesheet" media="print">
+    <link href="~/Scripts/scheduler.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -58,20 +62,234 @@
             </div>
         </div>
         <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" Visible="false">
+
             </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
+        
 
-               
 
-                
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET daj sdas vise test kiki</p>
-                <p><%=variable %></p>
-
-            </footer>
-        </div>
 
     </form>
+    <script src="Scripts/moment.min.js"></script>
+    <script src="Scripts/jquery.min.js"></script>
+    <script src='Scripts/jquery-ui.min.js'></script>
+    <script src="Scripts/fullcalendar.min.js"></script>
+    <script src="Scripts/scheduler.min.js"></script>
+
+    <!--  <script>
+          $(document).ready(function () {
+              var events = [];
+              $.ajax({
+                  type: "GET",
+                  url: "/home/GetEvents",
+                  success: function (data) {
+                      $.each(data, function (i, v) {
+                          events.push({
+                              title: v.Subject,
+                              description: v.Description,
+                              start: moment(v.Pocetak),
+                              end: v.Kraj != null ? moment(v.Kraj) : null,
+                              color: v.ThemeColor,
+                              allDay: v.IsFullDay
+                          });
+                      })
+                      GenerateCalendar(events);
+                  }, error: function (error) {
+                      alert('failed');
+                  }
+              })
+
+              function GenerateCalendar(events) {
+                  $('#calendar').fullCalendar('destroy');
+                  $('#calendar').fullCalendar({
+                      contentHeight: 400,
+                      defaultDate: new Date(),
+                      timeFormat: 'h(:mm)a',
+                      header: {
+                          left: 'prev,next today',
+                          center: 'title',
+                          right: 'month, basicWeek,basicDay,agenda'
+                      },
+                      eventLimit: true,
+                      eventColor: '#378006',
+                      events: events
+                  })
+
+              }
+
+          })
+
+      </script>-->
+
+
+    <script type="text/javascript">
+
+        $(function () { // document ready
+
+            $('#external-events .fc-event').each(function () {
+
+                // store data so the calendar knows to render an event upon drop
+                $(this).data('event', {
+                    title: $.trim($(this).text()), // use the element's text as the event title
+                    stick: true // maintain when user navigates (see docs on the renderEvent method)
+                });
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true,      // will cause the event to go back to its
+                    revertDuration: 0  //  original position after the drag
+                });
+
+
+
+            });
+
+            $('#calendar').fullCalendar({
+                now: '2018-04-07',
+                editable: true,
+                droppable: true,
+                aspectRatio: 1.8,
+                scrollTime: '00:00',
+                header: {
+                    left: 'promptResource today prev,next',
+                    center: 'title',
+                    right: 'timelineDay,timelineThreeDays,agendaWeek,month,timelineYear'
+                },
+                customButtons: {
+                    promptResource: {
+                        text: '+ room',
+                        click: function () {
+                            var title = prompt('Room name');
+                            if (title) {
+                                $('#calendar').fullCalendar(
+                                    'addResource',
+                                    { title: title },
+                                    true // scroll to the new resource?
+                                );
+                            }
+                        }
+                    }
+                },
+                defaultView: 'timelineDay',
+                views: {
+                    timelineThreeDays: {
+                        type: 'timeline',
+                        duration: { days: 3 }
+                    }
+                },
+                resourceLabelText: 'Workers',
+                resourceRender: function (resource, cellEls) {
+                    cellEls.on('click', function () {
+                        if (confirm('Are you sure you want to delete ' + resource.title + '?')) {
+                            $('#calendar').fullCalendar('removeResource', resource);
+                        }
+                    });
+                },
+                resources: [  
+                    {
+                        id: 'd', title: 'L2 workers', children: [
+                            { id: 'd1', title: 'L2 team leader' },
+                            { id: 'd1', title: 'L2 senior' },
+                            { id: 'd2', title: 'L2 agent' }
+                        ]
+                    },
+                    {
+                        id: 'a', title: 'L1 workers', children: [
+                            { id: 'a1', title: 'L1 team-leader' },
+                            { id: 'a1', title: 'L1 senior' },
+                            { id: 'a2', title: 'L1 agent' },
+                            { id: 'a2', title: 'L1 newcomer' }
+                        ]
+                    },
+                 
+                
+                ],
+               
+                events: [
+                    { id: '1', resourceId: 'b', start: '2018-04-07T02:00:00', end: '2018-04-07T07:00:00', title: 'event 1' },
+                    { id: '2', resourceId: 'c', start: '2018-04-07T05:00:00', end: '2018-04-07T22:00:00', title: 'event 2' },
+                    { id: '3', resourceId: 'd', start: '2018-04-06', end: '2018-04-08', title: 'event 3' },
+                    { id: '4', resourceId: 'e', start: '2018-04-07T03:00:00', end: '2018-04-07T08:00:00', title: 'event 4' },
+                    { id: '5', resourceId: 'f', start: '2018-04-07T00:30:00', end: '2018-04-07T02:30:00', title: 'event 5' }
+                ]
+            });
+
+        });
+
+    </script>
+
+
+
+
+<style>
+
+
+    body {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 14px;
+        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    }
+
+    #wrap {
+        width: 1100px;
+        margin: 0 auto;
+    }
+
+    #external-events {
+        float: left;
+        width: 150px;
+        padding: 0 10px;
+        border: 1px solid #ccc;
+        background: #eee;
+        text-align: left;
+    }
+
+        #external-events h4 {
+            font-size: 16px;
+            margin-top: 0;
+            padding-top: 1em;
+        }
+
+        #external-events .fc-event {
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        #external-events p {
+            margin: 1.5em 0;
+            font-size: 11px;
+            color: #666;
+        }
+
+            #external-events p input {
+                margin: 0;
+                vertical-align: middle;
+            }
+
+    #calendar {
+        float: right;
+        width: 900px;
+    }
+</style>
+
+
+<div id='wrap'>
+    <div id='external-events'>
+        <h4>Draggable Events</h4>
+        <div class='fc-event'>Seba</div>
+        <div class='fc-event'>Kiki</div>
+        <div class='fc-event'>Sabol</div>
+        <div class='fc-event'>Visnja</div>
+        <div class='fc-event'>Bepo</div>
+        <p>
+            <input type='checkbox' id='drop-remove' />
+            <label for='drop-remove'>remove after drop</label>
+        </p>
+    </div>
+    <div id='calendar'></div>
+    <div style='clear:both'></div>
+</div>
 </body>
 </html>
