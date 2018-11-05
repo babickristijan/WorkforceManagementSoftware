@@ -24,13 +24,11 @@ namespace WorkforceManagementSoftware
     // [System.Web.Script.Services.ScriptService]
     public class EventSeba
     {
-        public string EventID;
-        public string Subject;
-        public string Description;
+        public string ID;
+        public string ResourceId;
         public string Start;
         public string End;
-        public string ThemeColor;
-        public string IsFullDay;
+        public string Title;
 
     }
     public class Sljakeri
@@ -53,7 +51,7 @@ namespace WorkforceManagementSoftware
             Dictionary<List<EventSeba>, List<EventSeba>> myLists = new Dictionary<List<EventSeba>, List<EventSeba>>();
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connStr))
-            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [EventID],[Subject],[Description],[Start],[End],[ThemeColor],[IsFullDay] FROM[metrisco_apartmentsgalli].[dbo].[Events] order by ThemeColor", connection))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [ID],[ResourceId],[Start],[End],[Title] FROM[metrisco_apartmentsgalli].[dbo].[Events1]", connection))
             {
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -63,36 +61,35 @@ namespace WorkforceManagementSoftware
                     {
 
                 EventSeba EventSeba = new EventSeba();
-                EventSeba.EventID = reader["EventID"].ToString();
-                EventSeba.Subject = reader["Subject"].ToString();
-                EventSeba.Description = reader["Description"].ToString();
-                EventSeba.Start = reader["Start"].ToString();
-                EventSeba.End = reader["End"].ToString();
-                EventSeba.ThemeColor = reader["ThemeColor"].ToString();
-                EventSeba.IsFullDay = reader["IsFullDay"].ToString();
+                EventSeba.ID = reader["ID"].ToString();
+                EventSeba.ResourceId = reader["ResourceId"].ToString();
+                //EventSeba.Start = reader["Start"].ToString();
+                EventSeba.Start = Convert.ToDateTime(reader["Start"]).ToString("MM/dd/yyyy");
+                 EventSeba.End = Convert.ToDateTime(reader["End"]).ToString("MM/dd/yyyy");
+                 EventSeba.Title = reader["Title"].ToString();
                 events.Add(EventSeba);
-                        string connStr1 = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-                        using (SqlConnection connection1 = new SqlConnection(connStr))
-                        using (SqlCommand command1 = new SqlCommand("SELECT TOP (1000) [ID],[Name]FROM[metrisco_apartmentsgalli].[dbo].[Radnici]", connection1))
-                        {
-                            connection1.Open();
-                            using (SqlDataReader reader1 = command1.ExecuteReader())
-                            {
+                        //string connStr1 = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                        //using (SqlConnection connection1 = new SqlConnection(connStr))
+                        //using (SqlCommand command1 = new SqlCommand("SELECT TOP (1000) [ID],[Name]FROM[metrisco_apartmentsgalli].[dbo].[Radnici]", connection1))
+                        //{
+                        //    connection1.Open();
+                        //    using (SqlDataReader reader1 = command1.ExecuteReader())
+                        //    {
 
-                                while (reader1.Read())
-                                {
-                                    Sljakeri Sljakeri = new Sljakeri();
-                                    Sljakeri.id = reader1["ID"].ToString();
-                                    Sljakeri.name = reader1["Name"].ToString();
+                        //        while (reader1.Read())
+                        //        {
+                        //            Sljakeri Sljakeri = new Sljakeri();
+                        //            Sljakeri.id = reader1["ID"].ToString();
+                        //            Sljakeri.name = reader1["Name"].ToString();
 
-                                    sljakeri.Add(Sljakeri);
+                        //            sljakeri.Add(Sljakeri);
 
 
 
-                                }
+                        //        }
 
-                            }
-                        }
+                        //    }
+                        //}
 
 
 
@@ -104,15 +101,15 @@ namespace WorkforceManagementSoftware
                 }
                 
             }
-            EventSeba[] array = events.ToArray();
-            Sljakeri[] array2 = sljakeri.ToArray();
-            var jaggedArray = new object[2];
-            jaggedArray[0] = new[] { array };
-            jaggedArray[1] = new[] { array2 };
+          //  EventSeba[] array = events.ToArray();
+            //Sljakeri[] array2 = sljakeri.ToArray();
+            //var jaggedArray = new object[2];
+            //jaggedArray[0] = new[] { array };
+            //jaggedArray[1] = new[] { array2 };
             //JavaScriptSerializer jss = new JavaScriptSerializer();
             //jsonString = jss.Serialize(events);
 
-            return new JsonResult { Data = jaggedArray, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
 
             //return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
