@@ -76,24 +76,29 @@
     <script src="Scripts/fullcalendar.min.js"></script>
     <script src="Scripts/scheduler.min.js"></script>
 
-    <!--  <script>
+      <script>
           $(document).ready(function () {
               var events = [];
               $.ajax({
-                  type: "GET",
-                  url: "/home/GetEvents",
+                  type: "POST",
+                  url: "Myservice.asmx/GetEvents",
+                  contentType: 'application/json; charset=utf-8',
+                  dataType: 'json',
                   success: function (data) {
-                      $.each(data, function (i, v) {
-                          events.push({
-                              title: v.Subject,
-                              description: v.Description,
-                              start: moment(v.Pocetak),
-                              end: v.Kraj != null ? moment(v.Kraj) : null,
-                              color: v.ThemeColor,
-                              allDay: v.IsFullDay
-                          });
-                      })
-                      GenerateCalendar(events);
+                      //$.each(data.d.Data, function (i, v) {
+                      //    events.push({
+                      //        title: v.Subject,
+                      //        description: v.Description,
+                      //        start: moment(v.Pocetak),
+                      //        end: v.Kraj != null ? moment(v.Kraj) : null,
+                      //        color: v.ThemeColor,
+                      //        allDay: v.IsFullDay
+                      //    });
+                          
+                          
+                      //})
+                      //GenerateCalendar(events);
+                      console.log(data);
                   }, error: function (error) {
                       alert('failed');
                   }
@@ -119,10 +124,10 @@
 
           })
 
-      </script>-->
+      </script>
 
 
-    <script type="text/javascript">
+ <!--   <script type="text/javascript">
 
         $(function () { // document ready
 
@@ -217,7 +222,7 @@
 
         });
 
-    </script>
+    </script> 
 
 
 
@@ -272,9 +277,9 @@
         float: right;
         width: 900px;
     }
-</style>
+</style> -->
 
-
+<!--
 <div id='wrap'>
     <div id='external-events'>
         <h4>Draggable Events</h4>
@@ -288,8 +293,10 @@
             <label for='drop-remove'>remove after drop</label>
         </p>
     </div>
-    <div id='calendar'></div>
+    
     <div style='clear:both'></div>
-</div>
+</div> -->
+
+    <div id='calendar'></div>
 </body>
 </html>
