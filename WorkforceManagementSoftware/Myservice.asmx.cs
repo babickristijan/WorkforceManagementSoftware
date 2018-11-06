@@ -51,7 +51,7 @@ namespace WorkforceManagementSoftware
             Dictionary<List<EventSeba>, List<EventSeba>> myLists = new Dictionary<List<EventSeba>, List<EventSeba>>();
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connStr))
-            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [ID],[ResourceId],[Start],[End],[Title] FROM[metrisco_apartmentsgalli].[dbo].[Events1]", connection))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [ID],[ResourceId],[Start],[End],[Title] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events]", connection))
             {
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
