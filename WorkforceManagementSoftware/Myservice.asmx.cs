@@ -32,13 +32,23 @@ namespace WorkforceManagementSoftware
         public string Title;
 
     }
-    public class Resources
+    public class ResourcesChild
     {
         public string id;
         public string title;
-        public string resourceid;
+        public string parentid;
 
     }
+
+    public class ResourcesParent
+    {
+        public string id;
+        public string title;
+
+    }
+
+
+
     [System.Web.Script.Services.ScriptService]
     public class Myservice : System.Web.Services.WebService
     {
@@ -49,7 +59,8 @@ namespace WorkforceManagementSoftware
         {
 
             List<EventSeba> events = new List<EventSeba>();
-            List<Resources> sljakeri = new List<Resources>();
+            List<ResourcesChild> sljakeri = new List<ResourcesChild>();
+            List<ResourcesParent> sljakeriparent = new List<ResourcesParent>();
             Dictionary<List<EventSeba>, List<EventSeba>> myLists = new Dictionary<List<EventSeba>, List<EventSeba>>();
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connStr))
@@ -86,7 +97,7 @@ namespace WorkforceManagementSoftware
 
             string connStr1 = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection connection1 = new SqlConnection(connStr))
-            using (SqlCommand command1 = new SqlCommand("SELECT unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesChild.id,unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesChild.title,unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesParent.id FROM unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesChild FULL OUTER JOIN unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesParentON unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesChild.resourceid = unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesParent.id", connection1))
+            using (SqlCommand command1 = new SqlCommand("SELECT TOP (1000) [id],[title],[Parentid] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild]", connection1))
             {
                 connection1.Open();
                 using (SqlDataReader reader1 = command1.ExecuteReader())
@@ -94,14 +105,38 @@ namespace WorkforceManagementSoftware
 
                     while (reader1.Read())
                     {
-                        Resources resources = new Resources();
+                        ResourcesChild resources = new ResourcesChild();
                         resources.id = reader1["id"].ToString();
                         resources.title = reader1["title"].ToString();
-                        
-                        resources.resourceid = reader1["resourceid"].ToString();
+                        resources.parentid = reader1["Parentid"].ToString();
 
 
                         sljakeri.Add(resources);
+
+
+
+                    }
+
+                }
+            }
+
+
+            string connStr2 = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection connection2 = new SqlConnection(connStr))
+            using (SqlCommand command2 = new SqlCommand("SELECT TOP (1000) [id],[title]FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesParent]", connection2))
+            {
+                connection2.Open();
+                using (SqlDataReader reader2 = command2.ExecuteReader())
+                {
+
+                    while (reader2.Read())
+                    {
+                        ResourcesParent resourcesparent = new ResourcesParent();
+                        resourcesparent.id = reader2["id"].ToString();
+                        resourcesparent.title = reader2["title"].ToString();
+
+
+                        sljakeriparent.Add(resourcesparent);
 
 
 
@@ -119,12 +154,15 @@ namespace WorkforceManagementSoftware
             //                })
             //                .ToList();
             EventSeba[] array = events.ToArray();
-            Resources[] array2 = sljakeri.ToArray();
-            var jaggedArray = new object[2];
+            ResourcesChild[] array2 = sljakeri.ToArray();
+            ResourcesParent[] array3 = sljakeriparent.ToArray();
+            var jaggedArray = new object[3];
             jaggedArray[0] = new[] { array };
             jaggedArray[1] = new[] { array2 };
-           // JavaScriptSerializer jss = new JavaScriptSerializer();
-           // jsonString = jss.Serialize(events);
+            jaggedArray[2] = new[] { array3 };
+
+            // JavaScriptSerializer jss = new JavaScriptSerializer();
+            // jsonString = jss.Serialize(events);
 
             return new JsonResult { Data = jaggedArray, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

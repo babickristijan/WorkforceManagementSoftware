@@ -133,12 +133,30 @@
 
          var events = [];
 		 var resources = [];
+         var parents = [];
+         var finalResource = [];
          $.ajax({
              type: "POST",
              url: "Myservice.asmx/GetEvents",
              contentType: 'application/json; charset=utf-8',
              dataType: 'json',
              success: function (data) {
+                parents = data.d.Data[2][0];
+                resources = data.d.Data[1][0];
+                for (var i=0; i<parents.length;i++){
+                    var tempObject = {id: parents[i].id, title:parents[i].title};
+                    console.log("tempObject",tempObject);
+                    var tempChildren = [];
+                    for (var j=0; j<resources.length;j++){
+                        if(resources[j].parentid == parents[i].id) {
+                            var tempObjectChildren = {id: resources[j].id, title: resources[j].title};
+                            tempChildren.push(tempObjectChildren);
+                        }
+                    }
+                    tempObject.children = tempChildren;
+                    finalResource.push(tempObject);
+                }
+
                 $.each(data.d.Data[0][0], function (i, v) {
                      events.push({
                          id: v.ID,
@@ -150,16 +168,7 @@
 
 
                  })
-				            $.each(data.d.Data[1][0], function (i, v) {
-                     resources.push({
-                         id: v.id,
-                         title: v.Title
-                     });
-
-
-                 })
-                 GenerateCalendar(events,resources); 
-                 console.log(data);
+                 GenerateCalendar(events,finalResource);
              }, error: function (error) {
                  alert('failed');
              }
@@ -228,25 +237,7 @@
                          }
                      });
                  },
-                 resources: resources/*[
-                     {
-                         id: 'd', title: 'L2 workers', children: [
-                             { id: 'd1', title: 'L2 team leader' },
-                             { id: 'd2', title: 'L2 senior' },
-                             { id: 'd3', title: 'L2 agent' }
-                         ]
-                     },
-                     {
-                         id: 'a', title: 'L1 workers', children: [
-                             { id: 'a1', title: 'L1 team-leader' },
-                             { id: 'a2', title: 'L1 senior' },
-                             { id: 'a3', title: 'L1 agent' },
-                             { id: 'a4', title: 'L1 newcomer' }
-                         ]
-                     },
-
-
-                 ]*/,
+                resources: finalResource,
                  events: events
              });
          }
