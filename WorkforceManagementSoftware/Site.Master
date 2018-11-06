@@ -129,16 +129,17 @@
 
  <script type="text/javascript">
 
-     $(function () { // document ready
+      $(function () { // document ready
 
          var events = [];
+		 var resources = [];
          $.ajax({
              type: "POST",
              url: "Myservice.asmx/GetEvents",
              contentType: 'application/json; charset=utf-8',
              dataType: 'json',
              success: function (data) {
-                 $.each(data.d.Data, function (i, v) {
+                $.each(data.d.Data[0][0], function (i, v) {
                      events.push({
                          id: v.ID,
                          resourceId: v.ResourceId,
@@ -149,7 +150,15 @@
 
 
                  })
-                 GenerateCalendar(events);
+				            $.each(data.d.Data[1][0], function (i, v) {
+                     resources.push({
+                         id: v.id,
+                         title: v.Title
+                     });
+
+
+                 })
+                 GenerateCalendar(events,resources); 
                  console.log(data);
              }, error: function (error) {
                  alert('failed');
@@ -177,7 +186,7 @@
 
 
 
-         function GenerateCalendar(events) {
+         function GenerateCalendar(events,resources) {
              $('#calendar').fullCalendar({
                  editable: true,
                  droppable: true,
@@ -219,7 +228,7 @@
                          }
                      });
                  },
-                 resources: [
+                 resources: resources/*[
                      {
                          id: 'd', title: 'L2 workers', children: [
                              { id: 'd1', title: 'L2 team leader' },
@@ -237,15 +246,8 @@
                      },
 
 
-                 ],
+                 ]*/,
                  events: events
-            /*       [
-                   { id: '1', resourceId: 'd1', start: '2018-04-07', end: '2018-04-10', title: 'event 1' },
-                   { id: '2', resourceId: 'd2', start: '2018-04-07', end: '2018-04-12', title: 'event 2' },
-                   { id: '3', resourceId: 'd3', start: '2018-04-06', end: '2018-04-14', title: 'event 3' },
-                   { id: '4', resourceId: 'a1', start: '2018-04-07', end: '2018-04-16', title: 'event 4' },
-                   { id: '5', resourceId: 'a2', start: '2018-04-07', end: '2018-04-18', title: 'event 5' }
-               ] */
              });
          }
 

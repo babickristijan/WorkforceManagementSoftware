@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,10 +32,11 @@ namespace WorkforceManagementSoftware
         public string Title;
 
     }
-    public class Sljakeri
+    public class Resources
     {
         public string id;
-        public string name;
+        public string title;
+        public string resourceid;
 
     }
     [System.Web.Script.Services.ScriptService]
@@ -47,7 +49,7 @@ namespace WorkforceManagementSoftware
         {
 
             List<EventSeba> events = new List<EventSeba>();
-            List<Sljakeri> sljakeri = new List<Sljakeri>();
+            List<Resources> sljakeri = new List<Resources>();
             Dictionary<List<EventSeba>, List<EventSeba>> myLists = new Dictionary<List<EventSeba>, List<EventSeba>>();
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connStr))
@@ -68,48 +70,63 @@ namespace WorkforceManagementSoftware
                  EventSeba.End = Convert.ToDateTime(reader["End"]).ToString("MM/dd/yyyy");
                  EventSeba.Title = reader["Title"].ToString();
                 events.Add(EventSeba);
-                        //string connStr1 = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-                        //using (SqlConnection connection1 = new SqlConnection(connStr))
-                        //using (SqlCommand command1 = new SqlCommand("SELECT TOP (1000) [ID],[Name]FROM[metrisco_apartmentsgalli].[dbo].[Radnici]", connection1))
-                        //{
-                        //    connection1.Open();
-                        //    using (SqlDataReader reader1 = command1.ExecuteReader())
-                        //    {
-
-                        //        while (reader1.Read())
-                        //        {
-                        //            Sljakeri Sljakeri = new Sljakeri();
-                        //            Sljakeri.id = reader1["ID"].ToString();
-                        //            Sljakeri.name = reader1["Name"].ToString();
-
-                        //            sljakeri.Add(Sljakeri);
-
-
-
-                        //        }
-
-                        //    }
-                        //}
+                        
 
 
 
                     }
-                   
-                    
+
+
 
 
                 }
                 
             }
-          //  EventSeba[] array = events.ToArray();
-            //Sljakeri[] array2 = sljakeri.ToArray();
-            //var jaggedArray = new object[2];
-            //jaggedArray[0] = new[] { array };
-            //jaggedArray[1] = new[] { array2 };
-            //JavaScriptSerializer jss = new JavaScriptSerializer();
-            //jsonString = jss.Serialize(events);
 
-            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            string connStr1 = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            using (SqlConnection connection1 = new SqlConnection(connStr))
+            using (SqlCommand command1 = new SqlCommand("SELECT unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesChild.id,unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesChild.title,unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesParent.id FROM unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesChild FULL OUTER JOIN unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesParentON unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesChild.resourceid = unipuhrhost25com_workforcemanagementsoftware.dbo.ResourcesParent.id", connection1))
+            {
+                connection1.Open();
+                using (SqlDataReader reader1 = command1.ExecuteReader())
+                {
+
+                    while (reader1.Read())
+                    {
+                        Resources resources = new Resources();
+                        resources.id = reader1["id"].ToString();
+                        resources.title = reader1["title"].ToString();
+                        
+                        resources.resourceid = reader1["resourceid"].ToString();
+
+
+                        sljakeri.Add(resources);
+
+
+
+                    }
+
+                }
+            }
+            //string seba = events.ToString();
+            //var jObj = JsonConvert.DeserializeObject(seba) as JObject;
+            //var result = jObj["data"].Children()
+            //                .Cast<JProperty>()
+            //                .Select(x => new {
+            //                    Title = (string)x.Value["title"],
+            //                    Author = (string)x.Value["author"],
+            //                })
+            //                .ToList();
+            EventSeba[] array = events.ToArray();
+            Resources[] array2 = sljakeri.ToArray();
+            var jaggedArray = new object[2];
+            jaggedArray[0] = new[] { array };
+            jaggedArray[1] = new[] { array2 };
+           // JavaScriptSerializer jss = new JavaScriptSerializer();
+           // jsonString = jss.Serialize(events);
+
+            return new JsonResult { Data = jaggedArray, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
 
             //return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
