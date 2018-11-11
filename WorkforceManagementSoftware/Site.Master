@@ -21,14 +21,9 @@
 
 </head>
 <body>
+    
     <form runat="server">
-        <div>
-    Welcome
-    <asp:LoginName ID="LoginName1" runat="server" Font-Bold = "true" />
-    <br />
-    <br />
-    <asp:LoginStatus ID="LoginStatus1" runat="server" />
-</div>
+
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
@@ -49,6 +44,7 @@
             </Scripts>
         </asp:ScriptManager>
 
+        <!-- Pocetak navigacije -->
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -68,264 +64,31 @@
                 </div>
             </div>
         </div>
+         <!-- Kraj navigacije -->
+
+
         <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" Visible="false">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" Visible="true">
 
             </asp:ContentPlaceHolder>
-        
-
-
-
+   
+    <div class="row" style="float:right">
+    Welcome
+    <asp:LoginName ID="LoginName1" runat="server" Font-Bold = "true" />
+    <br />
+    <button type="button" class="btn btn-primary" >
+    <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" />
+        </button>
+        </div>
+</div>
     </form>
     <script src="Scripts/moment.min.js"></script>
     <script src="Scripts/jquery.min.js"></script>
     <script src='Scripts/jquery-ui.min.js'></script>
     <script src="Scripts/fullcalendar.min.js"></script>
     <script src="Scripts/scheduler.min.js"></script>
-
-   <!--  <script>
-          $(document).ready(function () {
-              var events = [];
-              $.ajax({
-                  type: "POST",
-                  url: "Myservice.asmx/GetEvents",
-                  contentType: 'application/json; charset=utf-8',
-                  dataType: 'json',
-                  success: function (data) {
-                     /* $.each(data.d.Data, function (i, v) {
-                          events.push({
-                              title: v.Subject,
-                              description: v.Description,
-                              start: moment(v.Pocetak),
-                              end: v.Kraj != null ? moment(v.Kraj) : null,
-                              color: v.ThemeColor,
-                              allDay: v.IsFullDay
-                          });
-                          
-                          
-                      })
-                      GenerateCalendar(events); */
-                      console.log(data);
-                  }, error: function (error) {
-                      alert('failed');
-                  }
-              })
-
-              function GenerateCalendar(events) {
-                  $('#calendar').fullCalendar('destroy');
-                  $('#calendar').fullCalendar({
-                      contentHeight: 400,
-                      defaultDate: new Date(),
-                      timeFormat: 'h(:mm)a',
-                      header: {
-                          left: 'prev,next today',
-                          center: 'title',
-                          right: 'month, basicWeek,basicDay,agenda'
-                      },
-                      eventLimit: true,
-                      eventColor: '#378006',
-                      events: events
-                  })
-
-              }
-
-          })
-
-      </script> -->
-
-
- <script type="text/javascript">
-
-      $(function () { // document ready
-
-         var events = [];
-		 var resources = [];
-         var parents = [];
-         var finalResource = [];
-         $.ajax({
-             type: "POST",
-             url: "Myservice.asmx/GetEvents",
-             contentType: 'application/json; charset=utf-8',
-             dataType: 'json',
-             success: function (data) {
-                parents = data.d.Data[2][0];
-                resources = data.d.Data[1][0];
-                for (var i=0; i<parents.length;i++){
-                    var tempObject = {id: parents[i].id, title:parents[i].title};
-                    console.log("tempObject",tempObject);
-                    var tempChildren = [];
-                    for (var j=0; j<resources.length;j++){
-                        if(resources[j].parentid == parents[i].id) {
-                            var tempObjectChildren = {id: resources[j].id, title: resources[j].title};
-                            tempChildren.push(tempObjectChildren);
-                        }
-                    }
-                    tempObject.children = tempChildren;
-                    finalResource.push(tempObject);
-                }
-
-                $.each(data.d.Data[0][0], function (i, v) {
-                     events.push({
-                         id: v.ID,
-                         resourceId: v.ResourceId,
-                         start: moment(v.Start),
-                         end: v.End != null ? moment(v.End) : null,
-                         title: v.Title
-                     });
-
-
-                 })
-                 GenerateCalendar(events,finalResource);
-             }, error: function (error) {
-                 alert('failed');
-             }
-         })
-
-         $('#external-events .fc-event').each(function () {
-
-             // store data so the calendar knows to render an event upon drop
-             $(this).data('event', {
-                 title: $.trim($(this).text()), // use the element's text as the event title
-                 stick: true // maintain when user navigates (see docs on the renderEvent method)
-             });
-
-             // make the event draggable using jQuery UI
-             $(this).draggable({
-                 zIndex: 999,
-                 revert: true,      // will cause the event to go back to its
-                 revertDuration: 0  //  original position after the drag
-             });
-
-
-
-         });
-
-
-
-         function GenerateCalendar(events,resources) {
-             $('#calendar').fullCalendar({
-                 editable: true,
-                 droppable: true,
-                 aspectRatio: 1.8,
-                 scrollTime: '00:00',
-                 displayEventTime: false,
-                 header: {
-                     left: 'promptResource prev,next',
-                     center: 'title',
-                     right: 'timelineMonth,timelineYear'
-                 },
-                 customButtons: {
-                     promptResource: {
-                         text: '+ room',
-                         click: function () {
-                             var title = prompt('Workers');
-                             if (title) {
-                                 $('#calendar').fullCalendar(
-                                     'addResource',
-                                     { title: title },
-                                     true // scroll to the new resource?
-                                 );
-                             }
-                         }
-                     }
-                 },
-                 defaultView: 'timelineDay',
-                 views: {
-                     timelineThreeDays: {
-                         type: 'timeline',
-                         duration: { days: 3 }
-                     }
-                 },
-                 resourceLabelText: 'Workers',
-                 resourceRender: function (resource, cellEls) {
-                     cellEls.on('click', function () {
-                         if (confirm('Are you sure you want to delete ' + resource.title + '?')) {
-                             $('#calendar').fullCalendar('removeResource', resource);
-                         }
-                     });
-                 },
-                resources: finalResource,
-                 events: events
-             });
-         }
-
-     });
-
- </script> 
-
-
-
-
-<style>
-
-
-    body {
-        margin-top: 40px;
-        text-align: center;
-        font-size: 14px;
-        font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-    }
-
-    #wrap {
-        width: 1100px;
-        margin: 0 auto;
-    }
-
-    #external-events {
-        float: left;
-        width: 150px;
-        padding: 0 10px;
-        border: 1px solid #ccc;
-        background: #eee;
-        text-align: left;
-    }
-
-        #external-events h4 {
-            font-size: 16px;
-            margin-top: 0;
-            padding-top: 1em;
-        }
-
-        #external-events .fc-event {
-            margin: 10px 0;
-            cursor: pointer;
-        }
-
-        #external-events p {
-            margin: 1.5em 0;
-            font-size: 11px;
-            color: #666;
-        }
-
-            #external-events p input {
-                margin: 0;
-                vertical-align: middle;
-            }
-
-    #calendar {
-        float: right;
-        width: 900px;
-    }
-</style>
-
-
-<div id='wrap'>
-    <div id='external-events'>
-        <h4>Draggable Events</h4>
-        <div class='fc-event'>Seba</div>
-        <div class='fc-event'>Kiki</div>
-        <div class='fc-event'>Sabol</div>
-        <div class='fc-event'>Visnja</div>
-        <div class='fc-event'>Bepo</div>
-        <p>
-            <input type='checkbox' id='drop-remove' />
-            <label for='drop-remove'>remove after drop</label>
-        </p>
+    <div>
+       
     </div>
-    <div id='calendar'></div>
-    <div style='clear:both'></div>
-</div> 
-
-    
 </body>
 </html>

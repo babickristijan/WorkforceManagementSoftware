@@ -10,6 +10,8 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Security;
+using System.Security.Cryptography;
+
 namespace WorkforceManagementSoftware
 {
     public partial class loginpage : System.Web.UI.Page
@@ -24,8 +26,8 @@ namespace WorkforceManagementSoftware
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Username", Login1.UserName);
-                        cmd.Parameters.AddWithValue("@Password", Login1.Password);
-                        cmd.Connection = con;
+                         cmd.Parameters.AddWithValue("@Password", Login1.Password);
+                    cmd.Connection = con;
                         con.Open();
                         userId = Convert.ToInt32(cmd.ExecuteScalar());
                         
