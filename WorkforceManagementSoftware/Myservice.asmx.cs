@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.Script.Services;
 using System.Web.Services;
 
 
@@ -45,6 +46,14 @@ namespace WorkforceManagementSoftware
         public string id;
         public string title;
 
+    }
+
+    public class PushEvents
+    {
+        public string ResourceId1;
+        public string Start1;
+        public string End1;
+        public string Title1;
     }
 
 
@@ -170,6 +179,58 @@ namespace WorkforceManagementSoftware
             //return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
 
+        }
+
+
+        //[WebMethod]
+        //public JsonResult PushEvents()
+        //{
+        //    List<PushEvents> events = new List<PushEvents>();
+        //    string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+        //    using (SqlConnection connection = new SqlConnection(connStr))
+        //    using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [ID],[ResourceId],[Start],[End],[Title] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events]", connection))
+
+
+        //}
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string PushEvents(string startDate, string endDate, string shiftPicker, string resourceIdHidden)
+        {
+            int mojsql;
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "INSERT INTO [unipuhrhost25com_workforcemanagementsoftware].dbo.Events (ResourceId, Start, \"End\", Title) VALUES(@id, @startdate,@endDate, @shiftPicker)";
+            cmd.Parameters.AddWithValue("@id", resourceIdHidden);
+            cmd.Parameters.AddWithValue("@startdate", startDate);
+            cmd.Parameters.AddWithValue("@endDate", endDate);
+            cmd.Parameters.AddWithValue("@shiftPicker", shiftPicker);
+
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "Select @@Identity";
+            
+
+               
+                    
+     
+            mojsql = Convert.ToInt32(cmd.ExecuteScalar());
+                    
+
+
+                
+
+
+
+
+            
+           
+
+            con.Close();
+
+            return mojsql.ToString();
         }
 
     }

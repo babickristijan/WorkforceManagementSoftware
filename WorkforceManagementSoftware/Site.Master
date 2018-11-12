@@ -82,7 +82,7 @@
     <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" />
         </button>
         </div>
-</div>
+        </div>
     </form>
     <script src="Scripts/moment.min.js"></script>
     <script src="Scripts/jquery.min.js"></script>
