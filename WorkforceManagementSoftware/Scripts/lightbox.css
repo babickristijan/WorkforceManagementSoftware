@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* lightbox */
+
+.lightboxOuter{
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.lightboxInner {
+    position: absolute;
+    display: block;
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 50%;
+    background-color: #FCFFF5;
+  }
+  
+  .lightboxClose {
+    color: #F70D1A;
+    float: right;
+    font-size: 50px;
+    font-weight: bold;
+    position: relative;
+    top:-10px;
+    right: 5px;
+  }
+  
+  .lightboxClose:hover {
+    color: #BB0000;
+    transform: scale(1.2);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+.lightboxForm {
+  position: relative;
+  width:  80%;
+  height: 80%;
+  margin: auto;
+}
+
+.shiftSelector {
+  position: relative;
+  height: 20%;
+  width: 100%;
+}
+
+.h1{
+  position: relative;
+  color: #3498DB;
+  font-size: 26px;
+  left: 20%;
+  top: 50%;
+  display: block;
+  height: 30px;
+  width: 145px;
+  float: left;
+}
+
+.shiftPicker {
+  position: relative;
+  display: block;
+  left:-45%;
+  top: 55%;
+  height: 30%;
+  width: 10%;
+  float: right;
+  font-size: 20px;
+}
+
+.dateSelector {
+  position: relative;
+  top:10%;
+  width: 100%;
+  height: 70%;
+}
+
+.dateSelectorL {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+.h3Left {
+  position: relative;
+  color: #3498DB;
+  font-size: 26px;
+  text-align: center;
+  top: 20%;
+}
+
+.dateSelectorR{
+  position: relative;
+  float: right;
+  width: 49%;
+  height: 100%;
+}
+
+.h3Right {
+  position: relative;
+  color: #3498DB;
+  font-size: 26px;
+  text-align: center;
+  top: 20%;
+}
+
+.bottomBtns {
+  height: 20%;
+  width: 80%;
+  margin: auto;
+}
+
+.saveBtn, .deleteBtn {
+  position: relative;
+  color: #FCFFF5;
+  display: inline-block;
+  font-size: 20px;
+  height: 50%;
+  width: 15%;
+  border-radius: 4px;
+  left: 30%;
+  top: 25%;
+}
+
+.saveBtn {
+  margin-right: 5%;
+  background-color: #3498DB;
+}
+
+.saveBtn:hover {
+  background-color: #167ABD;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  background-color: #F70D1A;
+}
+
+.deleteBtn:hover {
+  background-color: #BB0000;
+  cursor: pointer;
+}

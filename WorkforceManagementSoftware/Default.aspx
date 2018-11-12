@@ -123,6 +123,42 @@
 
  </script> 
 
-    <div id='calendar'></div>
+    <div id='calendar' style="padding-top:200px;"></div>
+
+
+     <div class="lightboxOuter">
+        <div class="lightboxInner">
+            <span class="lightboxClose">&times;</span>
+            <div class="lightboxForm">
+                <div class="shiftSelector">
+                    <label class="h1">Choose Shift:</label>
+                    <select name="shiftPicker" form="shiftPicker" class="shiftPicker">
+                    <option value="s1">8-15</option>
+                    <option value="s2">8-16</option>
+                    <option value="s3">12-20</option>
+                    <option value="s4">15-22</option>
+                    <option value="s5">16-22</option>
+                    <option value="s6">8-13</option>
+                    <option value="s7">13-18</option>
+                    <option value="s8">16-22</option>
+                    <option value="s9">GO</option>
+                </select>
+                </div>
+                <div class="dateSelector">
+                    <div class="dateSelectorL">
+                        <h3 class="h3Left">Start Date: <input type="text" id="startDate"></h3>   
+                    </div>
+                    <div class="dateSelectorR">
+                        <h3 class="h3Right">End Date: <input type="text" id="endDate"></h3>
+                    </div>   
+                </div>
+            </div>
+            
+            <div class="bottomBtns">
+                <button class="saveBtn">Save</button>
+                <button class="deleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
    
 </asp:Content>
