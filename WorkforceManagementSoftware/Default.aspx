@@ -184,7 +184,7 @@
             <span class="lightboxClose" id="lightboxClose">&times;</span>
             <div class="lightboxForm">
                 <div class="shiftSelector">
-                    <label class="h1">Choose Shift:</label>
+                    <h1 class="h1">Choose Shift:</h1>
                     <select name="shiftPicker" id="shiftPicker" form="shiftPicker" class="shiftPicker">
                     <option value="8-15">8-15</option>
                     <option value="s2">8-16</option>
@@ -198,13 +198,9 @@
                 </select>
                 </div>
                 <div class="dateSelector">
-                    <div class="dateSelectorL">
-                        <h3 class="h3Left">Start Date: <input type="text" id="startDate"></h3>
+                        <h3 class="h3">Start Date: <input type="text" id="startDate"></h3>
                         <input type="hidden" id="resourceIdHidden">
-                    </div>
-                    <div class="dateSelectorR">
-                        <h3 class="h3Right">End Date: <input type="text" id="endDate"></h3>
-                    </div>   
+                        <h3 class="h3">End Date: <input type="text" id="endDate"></h3>
                 </div>
             </div>
             
