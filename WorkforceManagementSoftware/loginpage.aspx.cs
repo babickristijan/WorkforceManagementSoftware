@@ -55,7 +55,7 @@ namespace WorkforceManagementSoftware
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Username", Login1.UserName);
                     passwordIzBaze = Login1.Password.ToString();
-                    hashiraniPassword = Hash(hashiraniPassword);
+                    hashiraniPassword = Hash(passwordIzBaze);
                     cmd.Parameters.AddWithValue("@Password", hashiraniPassword);
                     cmd.Connection = con;
                         con.Open();
