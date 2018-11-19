@@ -93,6 +93,7 @@
 
                 // store data so the calendar knows to render an event upon drop
                 $(this).data('event', {
+                    id: $(this)[0].id,
                     title: $.trim($(this).text()), // use the element's text as the event title
                     stick: true // maintain when user navigates (see docs on the renderEvent method)
                 });
@@ -166,7 +167,40 @@
                         });
                     },
                     resources: finalResource,
-                    events: events
+                    events: events,
+                    eventReceive: function(event) {
+                        console.log("sebosebo", event);
+                        var startDate = event.start._d;
+                        startDate = startDate.toISOString().slice(0, 10);
+                        var resourceId = event.resourceId;
+                        var idsmjene = event.id;
+
+                        let data = JSON.stringify({ "startDate": startDate, "endDate": startDate, "shiftPicker": idsmjene, "resourceIdHidden": resourceId });
+                        $.ajax({
+                            type: "POST",
+                            url: "Myservice.asmx/PushEvents",
+                            contentType: 'application/json; charset=utf-8',
+                            data: data,
+                            dataType: "json",
+                            success: function (data) {
+                           /*     let lastid = data.d;
+                                console.log(data.d);
+                                $("#modal-view").hide();
+                                let newEvent = {
+                                    id: lastid,
+                                    resourceId: resourceIdHidden,
+                                    start: moment(startDate),
+                                    end: moment(endDate),
+                                    title: shiftPicker
+                                };
+                                $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
+                                console.log(newEvent); */
+                            }, error: function (error) {
+                                alert('failed');
+                            },
+                        })
+                       
+                    }
                 });
             }
 
@@ -176,7 +210,82 @@
 
     </script> 
 
-    <div id='calendar' style="padding-top:200px;"></div>
+    <style>
+
+  body {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+  }
+    
+  #wrap {
+    width: 1100px;
+    margin: 0 auto;
+  }
+    
+  #external-events {
+    float: left;
+    width: 150px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    text-align: left;
+  }
+    
+  #external-events h4 {
+    font-size: 16px;
+    margin-top: 0;
+    padding-top: 1em;
+  }
+    
+  #external-events .fc-event {
+    margin: 10px 0;
+    cursor: pointer;
+  }
+    
+  #external-events p {
+    margin: 1.5em 0;
+    font-size: 11px;
+    color: #666;
+  }
+    
+  #external-events p input {
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  #calendar {
+    float: right;
+    width: 900px;
+  }
+
+</style>
+
+
+        <div style="padding-top:80px;" id='wrap'>
+
+    <div id='external-events'>
+      <h4>Draggable Events</h4>
+         <asp:Repeater ID="Repeater1" runat="server" DataSourceID="myConnectionString">
+            <ItemTemplate>
+            <div class='fc-event' id='<%# Eval("id") %>'><%# Eval("naziv") %></div>  
+                </ItemTemplate>
+            </asp:Repeater>
+          <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
+        ID="myConnectionString" runat="server" SelectCommand="SELECT TOP (1000) [id] ,[naziv] ,[color] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene]"></asp:SqlDataSource>
+      <p>
+        <input type='checkbox' id='drop-remove' />
+        <label for='drop-remove'>remove after drop</label>
+      </p>
+    </div>
+
+    <div id='calendar'></div>
+
+    <div style='clear:both'></div>
+
+  </div>
+   
 
 
      <div class="lightboxOuter" id="modal-view">

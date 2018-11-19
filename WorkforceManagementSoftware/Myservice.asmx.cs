@@ -71,9 +71,9 @@ namespace WorkforceManagementSoftware
             List<ResourcesChild> sljakeri = new List<ResourcesChild>();
             List<ResourcesParent> sljakeriparent = new List<ResourcesParent>();
             Dictionary<List<EventSeba>, List<EventSeba>> myLists = new Dictionary<List<EventSeba>, List<EventSeba>>();
-            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString + "MultipleActiveResultSets=true";
             using (SqlConnection connection = new SqlConnection(connStr))
-            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [ID],[ResourceId],[Start],[End],[Title] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events]", connection))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [ID],[ResourceId],[Start],[End],[id_smjene] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events]", connection))
             {
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -81,27 +81,57 @@ namespace WorkforceManagementSoftware
 
                     while (reader.Read())
                     {
-
+                var naziv_smjene = "";
+                var id_smjene = "";
                 EventSeba EventSeba = new EventSeba();
                 EventSeba.ID = reader["ID"].ToString();
                 EventSeba.ResourceId = reader["ResourceId"].ToString();
                 //EventSeba.Start = reader["Start"].ToString();
                 EventSeba.Start = Convert.ToDateTime(reader["Start"]).ToString("MM/dd/yyyy");
                  EventSeba.End = Convert.ToDateTime(reader["End"]).ToString("MM/dd/yyyy");
-                 EventSeba.Title = reader["Title"].ToString();
-                events.Add(EventSeba);
-                        
+                 
+                 id_smjene = reader["id_smjene"].ToString();
+                 events.Add(EventSeba);
 
+                        using (SqlCommand command1 = new SqlCommand("SELECT TOP (100) [id],[naziv],[color]FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] where id =" + id_smjene, connection))
+                        {
+                            
+                            using (SqlDataReader reader1 = command1.ExecuteReader())
+                            {
+
+                                while (reader1.Read())
+                                {
+
+                                    naziv_smjene = reader1["naziv"].ToString();
+                                    EventSeba.Title = naziv_smjene;
+
+
+
+
+
+
+
+
+
+                                }
+
+
+
+
+                            }
+
+                        }
 
 
                     }
 
-
-
-
                 }
+                connection.Close();
                 
             }
+
+
+
 
 
             string connStr1 = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
@@ -127,6 +157,7 @@ namespace WorkforceManagementSoftware
                     }
 
                 }
+                connection1.Close();
             }
 
 
@@ -152,16 +183,9 @@ namespace WorkforceManagementSoftware
                     }
 
                 }
+                connection2.Close();
             }
-            //string seba = events.ToString();
-            //var jObj = JsonConvert.DeserializeObject(seba) as JObject;
-            //var result = jObj["data"].Children()
-            //                .Cast<JProperty>()
-            //                .Select(x => new {
-            //                    Title = (string)x.Value["title"],
-            //                    Author = (string)x.Value["author"],
-            //                })
-            //                .ToList();
+
             EventSeba[] array = events.ToArray();
             ResourcesChild[] array2 = sljakeri.ToArray();
             ResourcesParent[] array3 = sljakeriparent.ToArray();
@@ -170,28 +194,12 @@ namespace WorkforceManagementSoftware
             jaggedArray[1] = new[] { array2 };
             jaggedArray[2] = new[] { array3 };
 
-            // JavaScriptSerializer jss = new JavaScriptSerializer();
-            // jsonString = jss.Serialize(events);
 
             return new JsonResult { Data = jaggedArray, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
 
-            //return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
 
         }
-
-
-        //[WebMethod]
-        //public JsonResult PushEvents()
-        //{
-        //    List<PushEvents> events = new List<PushEvents>();
-        //    string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-        //    using (SqlConnection connection = new SqlConnection(connStr))
-        //    using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [ID],[ResourceId],[Start],[End],[Title] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events]", connection))
-
-
-        //}
 
         [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
         public string PushEvents(string startDate, string endDate, string shiftPicker, string resourceIdHidden)
@@ -202,7 +210,7 @@ namespace WorkforceManagementSoftware
 
             con.Open();
             SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = "INSERT INTO [unipuhrhost25com_workforcemanagementsoftware].dbo.Events (ResourceId, Start, \"End\", Title) VALUES(@id, @startdate,@endDate, @shiftPicker)";
+            cmd.CommandText = "INSERT INTO [unipuhrhost25com_workforcemanagementsoftware].dbo.Events (ResourceId, Start, \"End\", id_smjene) VALUES(@id, @startdate,@endDate, @shiftPicker)";
             cmd.Parameters.AddWithValue("@id", resourceIdHidden);
             cmd.Parameters.AddWithValue("@startdate", startDate);
             cmd.Parameters.AddWithValue("@endDate", endDate);
@@ -211,22 +219,9 @@ namespace WorkforceManagementSoftware
             cmd.ExecuteNonQuery();
 
             cmd.CommandText = "Select @@Identity";
-            
-
-               
-                    
-     
+ 
             mojsql = Convert.ToInt32(cmd.ExecuteScalar());
                     
-
-
-                
-
-
-
-
-            
-           
 
             con.Close();
 
