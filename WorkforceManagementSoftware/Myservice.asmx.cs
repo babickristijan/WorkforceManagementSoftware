@@ -86,7 +86,6 @@ namespace WorkforceManagementSoftware
                 EventSeba EventSeba = new EventSeba();
                 EventSeba.ID = reader["ID"].ToString();
                 EventSeba.ResourceId = reader["ResourceId"].ToString();
-                //EventSeba.Start = reader["Start"].ToString();
                 EventSeba.Start = Convert.ToDateTime(reader["Start"]).ToString("MM/dd/yyyy");
                  EventSeba.End = Convert.ToDateTime(reader["End"]).ToString("MM/dd/yyyy");
                  
@@ -227,6 +226,42 @@ namespace WorkforceManagementSoftware
 
             return mojsql.ToString();
         }
+
+
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string UpdateEvents(string startDate, string endDate, string shiftPicker, string resourceIdHidden)
+        {
+          
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "UPDATE Events SET [Start] =  @startDate,[End] = @endDate  WHERE[ID] = @shiftPicker";
+            cmd.Parameters.AddWithValue("@id", resourceIdHidden);
+            cmd.Parameters.AddWithValue("@startdate", startDate);
+            cmd.Parameters.AddWithValue("@endDate", endDate);
+            cmd.Parameters.AddWithValue("@shiftPicker", shiftPicker);
+
+            cmd.ExecuteNonQuery();
+
+          
+
+            
+
+
+            con.Close();
+
+            return "";
+        }
+
+
+
+
+
+
+
 
     }
 }
