@@ -199,11 +199,12 @@ namespace WorkforceManagementSoftware
 
 
         }
-
+       
         [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
-        public string PushEvents(string startDate, string endDate, string shiftPicker, string resourceIdHidden)
+        public JsonResult PushEvents(string startDate, string endDate, string shiftPicker, string resourceIdHidden)
         {
             int mojsql;
+            var nazivSmjene = "";
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             SqlConnection con = new SqlConnection(connStr);
 
@@ -220,11 +221,32 @@ namespace WorkforceManagementSoftware
             cmd.CommandText = "Select @@Identity";
  
             mojsql = Convert.ToInt32(cmd.ExecuteScalar());
-                    
 
+
+
+            using (SqlCommand command1 = new SqlCommand("SELECT TOP (100) [id],[naziv],[color]FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] where id =" + shiftPicker, con))
+            {
+
+                using (SqlDataReader reader1 = command1.ExecuteReader())
+                {
+
+                    while (reader1.Read())
+                    {
+
+                        nazivSmjene = reader1["naziv"].ToString();
+
+                    }
+
+                }
+
+            }
             con.Close();
+            
+            var jaggedArray = new object[2];
+            jaggedArray[0] = mojsql.ToString();
+            jaggedArray[1] = nazivSmjene;
 
-            return mojsql.ToString();
+            return new JsonResult { Data = jaggedArray, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
 

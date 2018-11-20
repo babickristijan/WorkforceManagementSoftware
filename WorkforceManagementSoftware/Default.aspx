@@ -4,16 +4,17 @@
 
 <script src="Scripts/Default.js"></script>
 <link href="Scripts/Default.css" rel="stylesheet">
+ <link href="Scripts/lightbox.css" rel="stylesheet">
 
 
 
 
     <div class="wrap-padding" id='wrap'>
-        <div id='external-events'>
-            <h4>Draggable Events</h4>
+        <div id="shift-wrapper">
+            <h4>Shifts</h4>
             <asp:Repeater ID="Repeater1" runat="server" DataSourceID="myConnectionString">
                 <ItemTemplate>
-                    <div class='fc-event' id='<%# Eval("id") %>'><%# Eval("naziv") %></div>
+                    <div class='shifts' id='<%# Eval("id") %>'><%# Eval("naziv") %></div>
                 </ItemTemplate>
             </asp:Repeater>
             <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
@@ -29,7 +30,7 @@
 
 
 
-     <%--<div class="lightboxOuter" id="modal-view">
+     <div class="lightboxOuter" id="modal-view">
         <div class="lightboxInner">
             <span class="lightboxClose" id="lightboxClose">&times;</span>
             <div class="lightboxForm">
@@ -59,6 +60,6 @@
                 <button class="deleteBtn" type="button">Delete</button>
             </div>
         </div>
-    </div>--%>
+    </div>
    
 </asp:Content>

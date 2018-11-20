@@ -10,7 +10,7 @@
     margin: 0 auto;
 }
 
-#external-events {
+#shift-wrapper {
     float: left;
     width: 150px;
     padding: 0 10px;
@@ -19,24 +19,24 @@
     text-align: left;
 }
 
-    #external-events h4 {
+    #shift-wrapper h4 {
         font-size: 16px;
         margin-top: 0;
         padding-top: 1em;
     }
 
-    #external-events .fc-event {
+    #shift-wrapper .shifts {
         margin: 10px 0;
         cursor: pointer;
     }
 
-    #external-events p {
+    #shift-wrapper p {
         margin: 1.5em 0;
         font-size: 11px;
         color: #666;
     }
 
-        #external-events p input {
+        #shift-wrapper p input {
             margin: 0;
             vertical-align: middle;
         }
@@ -47,5 +47,9 @@
 }
 
 .wrap-padding {
-    padding-top:80px;
+    padding-top: 80px;
+}
+
+.selected-shift {
+    outline: 5px solid red;
 }
