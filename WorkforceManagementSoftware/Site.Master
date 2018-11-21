@@ -90,6 +90,7 @@
     <script src="Scripts/jquery.min.js"></script>
     <script src='Scripts/jquery-ui.min.js'></script>
     <script src="Scripts/fullcalendar.min.js"></script>
+    <script src="Scripts/locale/hr.js"></script>
     <script src="Scripts/scheduler.min.js"></script>
     <script src="Scripts/lightbox.js"></script>
     <div>

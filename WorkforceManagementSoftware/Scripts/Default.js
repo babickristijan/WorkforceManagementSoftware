@@ -88,6 +88,7 @@
                     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                     eventDurationEditable: true,
                 //    droppable: false,
+
                     allDay: true,
                     aspectRatio: 1.8,
                     scrollTime: '00:00',
@@ -132,12 +133,17 @@
 
                     },
                     header: {
-                        left: 'promptResource prev,next',
+                        left: 'prev,next',
                         center: 'title',
                         right: 'timelineMonth,timelineYear'
                     },
                     defaultView: 'timelineMonth',
                     resourceLabelText: 'Workers',
+                    locale: 'hr',
+                    slotLabelFormat: [
+                        'MMMM YYYY', // top level of text
+                        'dddd'        // lower level of text
+                    ],
                     resources: finalResource,
                     events: events,
                     eventReceive: function (event) {
