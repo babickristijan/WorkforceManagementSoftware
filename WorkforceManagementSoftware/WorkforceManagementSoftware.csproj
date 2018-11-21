@@ -162,8 +162,6 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.min.js" />
-    <Content Include="Scripts\lightbox.css" />
-    <Content Include="Scripts\lightbox.js" />
     <Content Include="Scripts\locale\af.js" />
     <Content Include="Scripts\locale\ar-dz.js" />
     <Content Include="Scripts\locale\ar-kw.js" />

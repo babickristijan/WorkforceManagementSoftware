@@ -1,6 +1,24 @@
-﻿
+﻿        
 
-       $(function () { // document ready
+$(function () { // document ready
+   
+
+        var modal = document.getElementById('eventModal');
+        // Get the <span> element that closes the modal
+        var closeModal= document.getElementsByClassName("close")[0];
+        
+        // When the user clicks on <span> (x), close the modal
+        closeModal.onclick = function() {
+                    modal.style.display = "none";
+                }
+                
+                // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+   
             var current_id_shift;
             $("#lightboxClose").click(function () {
                 $("#modal-view").hide();
@@ -108,10 +126,10 @@
 
                         //ovdje treba napraviti modal za update eventa i dellete
 
-
-                        alert('Event: ' + calEvent.title);
-                        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                        alert('View: ' + view.name);
+                        modal.style.display = "block";
+                        //alert('Event: ' + calEvent.title);
+                        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                        //alert('View: ' + view.name);
 
                         // change the border color just for fun
                         $(this).css('border-color', 'red');

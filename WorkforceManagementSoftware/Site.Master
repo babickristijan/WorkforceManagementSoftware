@@ -18,7 +18,6 @@
     <link href="~/Scripts/fullcalendar.min.css" rel="stylesheet">
     <link href="~/Scripts/fullcalendar.print.min.css" rel="stylesheet" media="print">
     <link href="~/Scripts/scheduler.min.css" rel="stylesheet">
-    <link href="~/Scripts/lightbox.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 </head>
@@ -92,7 +91,6 @@
     <script src="Scripts/fullcalendar.min.js"></script>
     <script src="Scripts/locale/hr.js"></script>
     <script src="Scripts/scheduler.min.js"></script>
-    <script src="Scripts/lightbox.js"></script>
     <div>
        
     </div>
