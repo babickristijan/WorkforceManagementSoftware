@@ -239,6 +239,7 @@ function insertAjaxEvent() {
     if (confirm("Are you sure you want to insert new shift?")) {
         let startDate = $("#startDate").val();
         let endDate = $("#endDate").val();
+        console.log("dsaihudas", endDate);
         let resourceIdHidden = $("#resourceIdHidden").val();
         let data = JSON.stringify({ "startDate": startDate, "endDate": endDate, "shiftPicker": current_id_shift, "resourceIdHidden": resourceIdHidden });
         $.ajax({
@@ -267,7 +268,7 @@ function insertAjaxEvent() {
             },
         })
     }
-}
+    }
 
 function initShift() {
 

@@ -64,12 +64,12 @@
                         <li style="float:right;margin-top:7px;"><button type="button" class="btn btn-primary" >
                     <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" />
                     </button></li>
-                       <%--     <div class="row" style="float:right">
-                            Welcome
+                            <div class="row" style="float:right;display:none;">
+                            
                         <asp:LoginName ID="LoginName1" runat="server" Font-Bold = "true" />
                         <br />
                         
-                    </div>--%>
+                    </div>
                     </ul>
                 </div>
             </div>
