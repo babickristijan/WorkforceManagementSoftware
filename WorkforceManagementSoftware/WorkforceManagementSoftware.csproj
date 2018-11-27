@@ -126,6 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddWorker.aspx" />
     <Content Include="Workers.aspx">
       <BrowseToURL>Workers</BrowseToURL>
     </Content>
@@ -270,6 +271,13 @@
     <Content Include="Views\web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddWorker.aspx.cs">
+      <DependentUpon>AddWorker.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddWorker.aspx.designer.cs">
+      <DependentUpon>AddWorker.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Workers.aspx.cs">
       <DependentUpon>Workers.aspx</DependentUpon>
