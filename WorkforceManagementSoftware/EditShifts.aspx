@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WorkforceManagementSoftware.Contact" %>
+﻿<%@ Page Title="EditShifts" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditShifts.aspx.cs" Inherits="WorkforceManagementSoftware.EditShifts" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %>.</h2>
