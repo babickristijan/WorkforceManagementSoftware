@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddWorker.aspx" />
+    <Content Include="Scripts\Workers.css" />
     <Content Include="Workers.aspx">
       <BrowseToURL>Workers</BrowseToURL>
     </Content>
@@ -281,7 +282,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Workers.aspx.cs">
       <DependentUpon>Workers.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Workers.aspx.designer.cs">
       <DependentUpon>Workers.aspx</DependentUpon>

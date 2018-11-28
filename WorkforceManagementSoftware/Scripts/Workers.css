@@ -1,0 +1,22 @@
+﻿
+table, td, tr {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+tr, td {
+    padding: 15px;
+}
+
+.btn-primary {
+    float: right
+}
+
+.tableHeader {
+    background-color: lightgray;
+}
