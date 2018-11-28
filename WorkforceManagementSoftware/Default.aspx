@@ -24,59 +24,32 @@
     </div>
 
 
-   
+
 
     <!-- The Modal -->
     <div id="eventModal" class="modal-event">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <form>
-        <select>
-           <asp:Repeater ID="Repeater2" runat="server" DataSourceID="getShifts">
-                <ItemTemplate>
-                    <option class='shifts' id='<%# Eval("id") %>'><%# Eval("naziv") %></option>
-                </ItemTemplate>
-            </asp:Repeater>
-        </select>
-    </form>
-  </div>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form>
+                <select id="smjeneModal" name="smjeneModal">
+                    <asp:Repeater ID="Repeater2" runat="server" DataSourceID="getShifts">
+                        <ItemTemplate>
+                            <option class='shifts' value='<%# Eval("id") %>'><%# Eval("naziv") %></option>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </select>
+            </form>
+            <button type="button" id="izmjeniModal">Izmjeni</button>
+            <button type="button" id="deleteModal">Delete</button>
+        </div>
 
-</div>
+    </div>
 
     
-
-    <div class="lightboxOuter" id="modal-view" style="display:none;">
-        <div class="lightboxInner">
-            <span class="lightboxClose" id="lightboxClose">&times;</span>
-            <div class="lightboxForm">
-                <div class="shiftSelector">
-                    <h1 class="h1">Choose Shift:</h1>
-                    <select name="shiftPicker" id="shiftPicker" form="shiftPicker" class="shiftPicker">
-                    <option value="8-15">8-15</option>
-                    <option value="s2">8-16</option>
-                    <option value="s3">12-20</option>
-                    <option value="s4">15-22</option>
-                    <option value="s5">16-22</option>
-                    <option value="s6">8-13</option>
-                    <option value="s7">13-18</option>
-                    <option value="s8">16-22</option>
-                    <option value="s9">GO</option>
-                </select>
-                </div>
-                <div class="dateSelector">
-                        <h3 class="h3">Start Date: <input type="text" id="startDate"></h3>
-                        <input type="hidden" id="resourceIdHidden">
-                        <h3 class="h3">End Date: <input type="text" id="endDate"></h3>
-                </div>
-            </div>
-            
-            <div class="bottomBtns">
-                <button class="saveBtn" id="saveBtn" type="button">Save</button>
-                <button class="deleteBtn" type="button">Delete</button>
-            </div>
-        </div>
-    </div>
+    <input type="hidden" id="startDate">
+    <input type="hidden" id="resourceIdHidden">
+    <input type="hidden" id="endDate">
    
 </asp:Content>

@@ -89,3 +89,13 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+.fc-bgevent {
+    font-size:10px;
+    text-align:center;
+    overflow:hidden;
+    font-weight:700;
+    opacity:0.5;
+    text-transform:uppercase;
+    padding-top:10px;
+}

@@ -1,8 +1,18 @@
-﻿        
+﻿var newEvents = [];
+var resourcesGlobal = [];
+var holidaysGlobal = [];
+
 
 $(function () { // document ready
-   
-
+    
+    
+        var dt = new Date();
+        var currentYear = dt.getFullYear();
+        var holidays;
+        $.getJSON("https://www.calendarindex.com/api/v1/holidays?country=HR&year="+currentYear+"&api_key=1d1410cac562f8bc93f6c1635eb81035a28c946c&fbclid=IwAR0IqOhrobhiGv1cW5eRAIkZaAwnMOy4M-tTMuWQdD0HVbwJxHWFb0YzrTE", function (result) {
+                holidays = result.response.holidays;
+         });
+        var globalEventId;
         var modal = document.getElementById('eventModal');
         // Get the <span> element that closes the modal
         var closeModal= document.getElementsByClassName("close")[0];
@@ -24,38 +34,6 @@ $(function () { // document ready
                 $("#modal-view").hide();
 
             });
-            $("#saveBtn").click(function () {
-                let startDate = $("#startDate").val();
-                let endDate = $("#endDate").val();
-                let shiftPicker = $("#shiftPicker").val();
-                let resourceIdHidden = $("#resourceIdHidden").val();
-
-                let data = JSON.stringify({ "startDate": startDate, "endDate": endDate, "shiftPicker": shiftPicker, "resourceIdHidden": resourceIdHidden });
-                $.ajax({
-                    type: "POST",
-                    url: "Myservice.asmx/PushEvents",
-                    contentType: 'application/json; charset=utf-8',
-                    data: data,
-                    dataType: "json",
-                    success: function (data) {
-                        let lastid = data.d;
-                        console.log(data.d);
-                        $("#modal-view").hide();
-                        let newEvent = {
-                            id: lastid,
-                            resourceId: resourceIdHidden,
-                            start: moment(startDate),
-                            end: moment(endDate),
-                            title: shiftPicker
-                        };
-                        $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
-                        console.log(newEvent);
-                    }, error: function (error) {
-                        alert('failed');
-                    },
-                })
-
-            });
             var events = [];
             var resources = [];
             var parents = [];
@@ -70,7 +48,6 @@ $(function () { // document ready
                     resources = data.d.Data[1][0];
                     for (var i = 0; i < parents.length; i++) {
                         var tempObject = { id: parents[i].id, title: parents[i].title };
-                        console.log("tempObject", tempObject);
                         var tempChildren = [];
                         for (var j = 0; j < resources.length; j++) {
                             if (resources[j].parentid == parents[i].id) {
@@ -81,7 +58,6 @@ $(function () { // document ready
                         tempObject.children = tempChildren;
                         finalResource.push(tempObject);
                     }
-
                     $.each(data.d.Data[0][0], function (i, v) {
                         events.push({
                             id: v.ID,
@@ -91,10 +67,15 @@ $(function () { // document ready
                             title: v.Title
                         });
 
+                       
 
-                    })
-                    console.log(events, "seba");
+                    });
+                    resourcesGlobal = resources;
+                    holidaysGlobal = holidays;
+                    
+                   
                     GenerateCalendar(events, finalResource);
+                    addfuckingevents();
                 }, error: function (error) {
                     alert('failed');
                 }
@@ -102,11 +83,11 @@ $(function () { // document ready
 
            function GenerateCalendar(events, resources) {
                initShift();
-                $('#calendar').fullCalendar({
+               $('#calendar').fullCalendar({
+                   
                     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                     eventDurationEditable: true,
-                //    droppable: false,
-
+                    
                     allDay: true,
                     aspectRatio: 1.8,
                     scrollTime: '00:00',
@@ -127,6 +108,8 @@ $(function () { // document ready
                         //ovdje treba napraviti modal za update eventa i dellete
 
                         modal.style.display = "block";
+                        globalEventId = calEvent.id;
+                        
                         //alert('Event: ' + calEvent.title);
                         //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
                         //alert('View: ' + view.name);
@@ -140,7 +123,6 @@ $(function () { // document ready
                     dayClick: function (date, jsEvent, view, resourceObj) {
                       //  alert(date.format());
                      //   $("#modal-view").show();
-                     //   console.log(resourceObj.id);
                         let clickDate = new Date(date.format());
                         clickDate = (clickDate.getMonth() + 1) + '/' + clickDate.getDate() + '/' + clickDate.getFullYear();
 
@@ -163,7 +145,12 @@ $(function () { // document ready
                         'dddd'        // lower level of text
                     ],
                     resources: finalResource,
-                    events: events,
+                   events: events,
+                   eventRender: function (event, element) {
+                       if (event.rendering == 'background') {
+                           element.append(event.title);
+                       }
+                   },
                     eventReceive: function (event) {
                         var startDate = event.start._d;
                         startDate = startDate.toISOString().slice(0, 10);
@@ -185,7 +172,21 @@ $(function () { // document ready
 
                     }
                 });
-            }
+    }
+    //button za update smjena
+    $("#izmjeniModal").on("click", function () {
+        var smjenaUpdate = $("#smjeneModal").val();
+        var title = $("#smjeneModal option[value=" + smjenaUpdate + "]").text();
+        updateShift(smjenaUpdate, globalEventId, title,modal);
+    }); 
+
+    $("#deleteModal").on("click", function () {
+        var smjenaUpdate = $("#smjeneModal").val();
+        deleteEvent(globalEventId,modal);
+
+    }); 
+
+    
 
 });
 
@@ -195,6 +196,7 @@ $(function () { // document ready
 function updateAjaxEvent(event, revertFunc) {
     var startDate = event.start._d;
     startDate = startDate.toISOString().slice(0, 10);
+    
     var resourceId = event.resourceId;
     var idsmjene = event.id;
     var endDate = event.end._d;
@@ -218,19 +220,65 @@ function updateAjaxEvent(event, revertFunc) {
     
 }
 
+function updateShift(idSmjene, idEventa, title, modal) {
+    
+    if (confirm("Are you sure?")) {
+        let data = JSON.stringify({
+            "idSmjene": idSmjene,
+            "idEventa": idEventa
+        });
+        $.ajax({
+            type: "POST",
+            url: "Myservice.asmx/UpdateShifts",
+            contentType: 'application/json; charset=utf-8',
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                var evento = $("#calendar").fullCalendar('clientEvents', idEventa);
+                evento[0].title = title;
+                $('#calendar').fullCalendar('updateEvent', evento[0]);
+                modal.style.display = "none";
+            },
+            error: function (error) {
+                alert('failed');
+            },
+        })
+    }
+}
+
+function deleteEvent(idEventa, modal) {
+    if (confirm("Are you sure?")) {
+        let data = JSON.stringify({
+            "idEventa": idEventa
+        });
+        $.ajax({
+            type: "POST",
+            url: "Myservice.asmx/DeleteEvent",
+            contentType: 'application/json; charset=utf-8',
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                var evento = $("#calendar").fullCalendar('removeEvents', [idEventa]);
+                modal.style.display = "none";
+            },
+            error: function (error) {
+                alert('failed');
+            },
+        })
+    }
+}
+
 
 
 $(document).ready(function () {
-    console.log($(".shifts:first"));
     $(".shifts").click(function () {
-        console.log($(this));
         current_id_shift = $(this).attr("id");
-        console.log(current_id_shift);
         $(".shifts").removeClass("selected-shift");
         $(this).addClass("selected-shift");
         
     });
-    console.log($("",".shifts:first"));
+
+
 
 });
 
@@ -239,7 +287,6 @@ function insertAjaxEvent() {
     if (confirm("Are you sure you want to insert new shift?")) {
         let startDate = $("#startDate").val();
         let endDate = $("#endDate").val();
-        console.log("dsaihudas", endDate);
         let resourceIdHidden = $("#resourceIdHidden").val();
         let data = JSON.stringify({ "startDate": startDate, "endDate": endDate, "shiftPicker": current_id_shift, "resourceIdHidden": resourceIdHidden });
         $.ajax({
@@ -249,10 +296,8 @@ function insertAjaxEvent() {
             data: data,
             dataType: "json",
             success: function (data) {
-                console.log("mozda smo uspjeli", data);
                 let naziv = data.d.Data[1];
                 let lastid = data.d.Data[0];
-                console.log(data.d);
                 $("#modal-view").hide();
                 let newEvent = {
                     id: lastid,
@@ -262,7 +307,6 @@ function insertAjaxEvent() {
                     title: naziv
                 };
                 $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
-                console.log(newEvent);
             }, error: function (error) {
                 alert('failed');
             },
@@ -275,8 +319,40 @@ function initShift() {
     $(".shifts:first").click();
    
 
-    } 
+} 
 
+
+
+
+function addfuckingevents() {
+    for (let i = 0; i < resourcesGlobal.length; i++) {
+
+        let currentResourceId = resourcesGlobal[i].id;
+        for (let j = 0; j < holidaysGlobal.length; j++) {
+            let currentHoliday = holidaysGlobal[j];
+
+            let split1 = currentHoliday.date.split(" ")[0];
+            let split2 = split1.split("-");
+            
+            let date = split2[1] + " " + split2[2] + " " + split2[0];
+            
+            newEvents.push({
+                id: "holiday2" + i + j,
+                resourceId: currentResourceId,
+                start: date,
+                end: date,
+                title: currentHoliday.name,
+                rendering: 'background',
+                color: 'rgba(255,0,0,0.3)'
+            });
+           
+
+
+        }
+
+    }
+    $('#calendar').fullCalendar('renderEvents', newEvents, 'stick');
+}
 
 
 

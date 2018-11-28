@@ -278,6 +278,55 @@ namespace WorkforceManagementSoftware
             return "";
         }
 
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string UpdateShifts(string idSmjene, string idEventa)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "UPDATE Events SET [id_smjene] =  @id_smjene WHERE[ID] = @id";
+            cmd.Parameters.AddWithValue("@id", idEventa);
+            cmd.Parameters.AddWithValue("@id_smjene", idSmjene);
+
+            cmd.ExecuteNonQuery();
+
+
+
+
+
+
+            con.Close();
+
+            return "";
+        }
+
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string DeleteEvent(string idEventa)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "DELETE FROM Events WHERE [ID] = @id";
+            cmd.Parameters.AddWithValue("@id", idEventa);
+
+            cmd.ExecuteNonQuery();
+
+
+
+
+
+
+            con.Close();
+
+            return "";
+        }
 
 
 
