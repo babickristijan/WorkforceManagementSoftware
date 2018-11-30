@@ -9,9 +9,16 @@ $(function () { // document ready
         var dt = new Date();
         var currentYear = dt.getFullYear();
         var holidays;
+        $.ajaxSetup({
+            async: false
+        });
+
         $.getJSON("https://www.calendarindex.com/api/v1/holidays?country=HR&year="+currentYear+"&api_key=1d1410cac562f8bc93f6c1635eb81035a28c946c&fbclid=IwAR0IqOhrobhiGv1cW5eRAIkZaAwnMOy4M-tTMuWQdD0HVbwJxHWFb0YzrTE", function (result) {
                 holidays = result.response.holidays;
-         });
+        });
+        $.ajaxSetup({
+            async: true
+        });
         var globalEventId;
         var modal = document.getElementById('eventModal');
         // Get the <span> element that closes the modal
