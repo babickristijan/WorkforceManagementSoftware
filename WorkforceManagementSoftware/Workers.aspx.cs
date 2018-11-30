@@ -10,78 +10,90 @@ using System.Web.UI.WebControls;
 
 namespace WorkforceManagementSoftware
 {
-    public class EventKiki
+    public class Worker
     {
-        public string ID_res;
-        public string Title;
+        public string id;
+        public string title;
         public string ParentId;
         public string Email;
         public string FirstName;
         public string LastName;
         public string VacationDayLeft;
-        public string ID_event;
-        public string Res_ID;
-        public string Start;
-        public string End;
-        public string ID_smjene;
-        public string smjena_ID;
-        public string naziv_smjene;
-        public string SmjenaSati;
-        public string sumaSati;
+        public double hours;
+        
     }
 
     public partial class Workers : Page
     {
-
+        //public List<string> Sites = new List<string> { "test" };
+        public List<Worker> ListOfWorkers = new List<Worker>();
         public void Page_Load(object sender, EventArgs e)
         {
             GetSumOfHour();
-        }
+            
+        }       
 
-        public string GetSumOfHour()
+        public List <Worker>  GetSumOfHour()
         {
-            List<EventKiki> events = new List<EventKiki>();
-            Dictionary<List<EventKiki>, List<EventKiki>> myLists = new Dictionary<List<EventKiki>, List<EventKiki>>();
+            
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString + "MultipleActiveResultSets=true";
             using (SqlConnection connection = new SqlConnection(connStr))
-            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild].[id], [title], [Parentid], [Email], [FirstName], [LastName], [VacationDayLeft], [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events].[ID],[ResourceId],[Start],[End],[id_smjene],[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene].[id],[naziv],[SmjenaSati], DATEDIFF(day,[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events].[Start], [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events].[End]) * SmjenaSati as Suma FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild] JOIN[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events] ON ResourcesChild.id = Events.ResourceId JOIN[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] ON Events.id_smjene = Smjene.id ORDER BY ResourcesChild.id", connection))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[title],[Parentid],[Email],[FirstName],[LastName],[VacationDayLeft] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild]", connection))
             {
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
 
                     while (reader.Read())
-                    { 
-                        EventKiki EventKiki = new EventKiki();
-                        EventKiki.ID_res = reader["id"].ToString();
-                        EventKiki.Title = reader["title"].ToString();
-                        EventKiki.ParentId = reader["Parentid"].ToString();
-                        EventKiki.FirstName = reader["FirstName"].ToString();
-                        EventKiki.LastName = reader["LastName"].ToString();
-                        EventKiki.VacationDayLeft = reader["VacationDayLeft"].ToString();
-                        EventKiki.ID_event = reader["ID"].ToString();
-                        EventKiki.Res_ID = reader["ResourceId"].ToString();
-                        EventKiki.Start = Convert.ToDateTime(reader["Start"]).ToString("MM/dd/yyyy");
-                        EventKiki.End = Convert.ToDateTime(reader["End"]).ToString("MM/dd/yyyy");
-                        EventKiki.ID_smjene = reader["id_smjene"].ToString();
-                        EventKiki.smjena_ID = reader["id"].ToString();
-                        EventKiki.naziv_smjene = reader["naziv"].ToString();
-                        EventKiki.SmjenaSati = reader["SmjenaSati"].ToString();
-                        EventKiki.sumaSati = reader["Suma"].ToString();
+                    {
+                        Worker Worker = new Worker();
+                        Worker.id = reader["id"].ToString();
+                        Worker.title = reader["title"].ToString();
+                        Worker.ParentId = reader["Parentid"].ToString();
+                        Worker.FirstName = reader["FirstName"].ToString();
+                        Worker.LastName = reader["LastName"].ToString();
+                        Worker.VacationDayLeft = reader["VacationDayLeft"].ToString();
 
-                       
-                   
+                        Double suma = 0;
+                        using (SqlCommand command1 = new SqlCommand("SELECT TOP (1000) dbo.Events.[ID],[ResourceId],[Start],[End],[id_smjene],[SmjenaSati]FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events] INNER JOIN[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] ON(dbo.Events.id_smjene = dbo.Smjene.[id]) where dbo.Events.ResourceId =" + Worker.id, connection))
+                        {
 
-    
-                        events.Add(EventKiki);
-                       
+                            using (SqlDataReader reader1 = command1.ExecuteReader())
+                            {
+
+                                while (reader1.Read())
+                                {
                     
+                                    Double SmjenaSati;
+
+                                    DateTime StartDate = Convert.ToDateTime(reader1["Start"]);
+                                    DateTime EndDate = Convert.ToDateTime(reader1["End"]);
+                                    SmjenaSati = Convert.ToInt32(reader1["SmjenaSati"]);
+                                    Double Days;
+                                    
+                                    
+                                    Days = (EndDate - StartDate).TotalDays;
+                                    if (Days == 0) Days = 1;
+                                    suma += (Days * SmjenaSati);
+
+                                }
+
+
+
+
+                            }
+
+                        }
+
+                        Worker.hours = suma;
+                        ListOfWorkers.Add(Worker);
+
                     }
                 }
                 connection.Close();
             }
 
-            return null;
+            return ListOfWorkers;
         }
     }
 

@@ -16,23 +16,46 @@
                 <td>Hours</td>
             </tr>
 
-            <asp:Repeater ID="Repeater3" runat="server" DataSourceID="getUsers">
+
+            <%foreach (var site in ListOfWorkers) { %>
+                
+                    <tr>
+                        <td><%= site.FirstName %></td>
+                        <td><%= site.LastName %></td>
+                        <td><%= site.VacationDayLeft %></td>
+                        <td><%= site.hours %></td>
+                      
+                    </tr>
+              <%  } %>
+                    
+
+
+
+
+          <%--  <asp:Repeater ID="outer" runat="server" >
                 <HeaderTemplate>
                 </HeaderTemplate>
-
+                
                 <ItemTemplate>
-
+                    <asp:Repeater runat="server" ID="inner" DataSourceID="GetSumOfHour">
+                        <ItemTemplate>
                     <tr>
                         <td><%# Eval("FirstName") %></td>
                         <td><%# Eval("LastName") %></td>
                         <td><%# Eval("VacationDayLeft") %></td>
-                        <td ID="test"></td>
+                        <td><%# Eval("hours") %></td>
+                      
                     </tr>
-
+                       </ItemTemplate>
+                    </asp:Repeater>
                 </ItemTemplate>
-            </asp:Repeater>
-            <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
-                ID="getUsers" runat="server" SelectCommand="SELECT TOP (1000) [id], [title], [Parentid], [Email], [FirstName], [LastName], [VacationDayLeft] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild]"></asp:SqlDataSource>
+                    
+            </asp:Repeater>--%>
+      <%--      <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
+                ID="getUsers" runat="server" SelectCommand="SELECT TOP (1000) [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild].[id], [title], [Parentid], [Email], [FirstName], [LastName], [VacationDayLeft], [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events].[ID],[ResourceId],[Start],[End],[id_smjene],[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene].[id],[naziv],[SmjenaSati], DATEDIFF(day,[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events].[Start], [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events].[End]) * SmjenaSati as Suma 
+FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild] JOIN[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events] 
+ON ResourcesChild.id = Events.ResourceId JOIN[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] 
+ON Events.id_smjene = Smjene.id ORDER BY ResourcesChild.id"></asp:SqlDataSource>--%>
 
         </table>
 
