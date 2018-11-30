@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddWorker.aspx" />
+    <Content Include="Scripts\loginpage.css" />
     <Content Include="Scripts\Workers.css" />
     <Content Include="Workers.aspx">
       <BrowseToURL>Workers</BrowseToURL>

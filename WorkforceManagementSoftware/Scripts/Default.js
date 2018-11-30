@@ -127,6 +127,7 @@ $(function () { // document ready
                         clickDate = (clickDate.getMonth() + 1) + '/' + clickDate.getDate() + '/' + clickDate.getFullYear();
 
                         $("#startDate").val(date.format());
+                        $("#endDate").val(date.format());
                         $("#resourceIdHidden").val(resourceObj.id);
                         insertAjaxEvent();
                         
@@ -287,6 +288,7 @@ function insertAjaxEvent() {
     if (confirm("Are you sure you want to insert new shift?")) {
         let startDate = $("#startDate").val();
         let endDate = $("#endDate").val();
+        console.log("seba", endDate);
         let resourceIdHidden = $("#resourceIdHidden").val();
         let data = JSON.stringify({ "startDate": startDate, "endDate": endDate, "shiftPicker": current_id_shift, "resourceIdHidden": resourceIdHidden });
         $.ajax({
