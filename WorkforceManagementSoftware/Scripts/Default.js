@@ -143,7 +143,7 @@ $(function () { // document ready
                     header: {
                         left: 'prev,next',
                         center: 'title',
-                        right: 'timelineMonth,timelineYear'
+                        right: 'timelineMonth'
                     },
                     defaultView: 'timelineMonth',
                     resourceLabelText: 'Workers',

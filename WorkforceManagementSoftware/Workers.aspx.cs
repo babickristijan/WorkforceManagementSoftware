@@ -55,7 +55,7 @@ namespace WorkforceManagementSoftware
                         Worker.VacationDayLeft = reader["VacationDayLeft"].ToString();
 
                         Double suma = 0;
-                        using (SqlCommand command1 = new SqlCommand("SELECT TOP (1000) dbo.Events.[ID],[ResourceId],[Start],[End],[id_smjene],[SmjenaSati]FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events] INNER JOIN[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] ON(dbo.Events.id_smjene = dbo.Smjene.[id]) where dbo.Events.ResourceId =" + Worker.id, connection))
+                        using (SqlCommand command1 = new SqlCommand("SELECT TOP (1000) dbo.Events.[ID],[ResourceId],[Start],[End],[id_smjene],[SmjenaSati]FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Events] INNER JOIN[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] ON(dbo.Events.id_smjene = dbo.Smjene.[id]) where MONTH (Start) = MONTH(DATEADD (dd,0,GetDate())) and YEAR (Start) = YEAR(DATEADD (dd,0,GetDate())) and dbo.Events.ResourceId =" + Worker.id, connection))
                         {
 
                             using (SqlDataReader reader1 = command1.ExecuteReader())
