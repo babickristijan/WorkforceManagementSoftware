@@ -129,6 +129,7 @@
     <Content Include="AddWorker.aspx" />
     <Content Include="Scripts\loginpage.css" />
     <Content Include="Scripts\Workers.css" />
+    <Content Include="Scripts\Workers.js" />
     <Content Include="Workers.aspx">
       <BrowseToURL>Workers</BrowseToURL>
     </Content>

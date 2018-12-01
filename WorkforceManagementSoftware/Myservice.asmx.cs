@@ -33,6 +33,17 @@ namespace WorkforceManagementSoftware
         public string Title;
 
     }
+
+    public class EditWorker
+    {
+        public string id;
+        public string title;
+        public string parent_id;
+        public string email;
+        public string firstname;
+        public string lastname;
+        public string vacation_day_left;
+    }
     public class ResourcesChild
     {
         public string id;
@@ -329,10 +340,114 @@ namespace WorkforceManagementSoftware
         }
 
 
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string DeleteWorker(string id)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+
+            cmd.CommandText = "DELETE FROM Events WHERE [ResourceId] = @ResourceId";
+            cmd.Parameters.AddWithValue("@ResourceId", id);
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "DELETE FROM ResourcesChild WHERE [id] = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+     
 
 
 
 
 
+
+            con.Close();
+
+            return "";
+        }
+
+        [WebMethod]
+        public JsonResult GetDataForEditWorker(string id_worker)
+        {
+
+            string id="";
+            string title= "";
+            string parent_id = "";
+            string email = "";
+            string firstname = "";
+            string lastname = "";
+            string vacation_day_left = "";
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString + "MultipleActiveResultSets=true";
+            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[title],[Parentid],[Email],[FirstName],[LastName],[VacationDayLeft] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild] WHERE id="+id_worker, connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+                       
+                        id = reader["id"].ToString();
+                        title = reader["title"].ToString();
+                        parent_id = reader["Parentid"].ToString();
+                        email = reader["Email"].ToString();
+                        firstname = reader["FirstName"].ToString();
+                        lastname = reader["LastName"].ToString();
+                        vacation_day_left = reader["VacationDayLeft"].ToString();
+
+
+                    }
+
+                }
+                connection.Close();
+
+            }
+
+
+            string [] array=new string[] { id,title,parent_id,email,firstname,lastname,vacation_day_left};
+   
+
+
+            return new JsonResult { Data = array, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+
+        }
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string UpdateWorker(string id, string firstname, string lastname, string vacationDayLeft, string workerCategory, string agentTitle, string email)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "UPDATE ResourcesChild SET [title] =  @title,[Parentid] = @parent_id,[Email] = @email,[FirstName] = @firstname,[LastName] = @lastname,[VacationDayLeft] = @vacation_left   WHERE[id] = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@title", agentTitle);
+            cmd.Parameters.AddWithValue("@firstname", firstname);
+            cmd.Parameters.AddWithValue("@lastname", lastname);
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@parent_id", workerCategory);
+            cmd.Parameters.AddWithValue("@vacation_left", vacationDayLeft);
+            cmd.ExecuteNonQuery();
+
+
+
+
+
+
+            con.Close();
+
+            return "";
+        }
     }
 }
