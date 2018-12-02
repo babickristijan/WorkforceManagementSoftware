@@ -127,6 +127,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddWorker.aspx" />
+    <Content Include="Images\background.jpg" />
+    <Content Include="Images\background1.jpg" />
+    <Content Include="Images\blurBlue.jpg" />
+    <Content Include="Images\dark.jpg" />
+    <Content Include="Images\dhh-logo-top.png" />
+    <Content Include="Images\images.jpg" />
+    <Content Include="Scripts\addWorker.css" />
     <Content Include="Scripts\loginpage.css" />
     <Content Include="Scripts\Shifts.js" />
     <Content Include="Scripts\Shifts.css" />

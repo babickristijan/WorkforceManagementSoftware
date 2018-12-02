@@ -2,20 +2,74 @@
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+   
 
-
-    
-
-            
+ <link rel="stylesheet" type="text/css" href="Scripts/addWorker.css">
 <%-- First name: <input type="text" name="firstname"><br />--%>
-      FirstName: <asp:TextBox id="firstname" runat="server" ></asp:TextBox>
-        Lastname: <asp:TextBox id="lastname" runat="server"></asp:TextBox>
-        Email: <asp:TextBox id="email" runat="server" TextMode="Email"></asp:TextBox>
-        <asp:DropDownList runat="server" ID="parentID" DataTextField="title" DataValueField="id" DataSourceID="getParent">
-    </asp:DropDownList>
-        Pozicija agenta: <asp:TextBox id="agenttitle" runat="server" placeholder="npr: L1 agent,L2 Senior"></asp:TextBox>
-        Broj godišnjeg odmora: <asp:TextBox id="vacationdayleft" runat="server" type="number" placeholder="unesite broj godišnjih dana"></asp:TextBox>
-   <asp:Button id="submitButton" runat="server"  OnClick="SubmitForm" />
+    
+    <table>
+        <tr>
+            <td align="center" colspan="2">
+                <h1>New worker</h1>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+        First name: 
+             </td>
+            <td>
+                <asp:TextBox id="firstname" runat="server" CssClass="textBox"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+        Last name:
+            </td>
+            <td>
+                <asp:TextBox id="lastname" runat="server" CssClass="textBox"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+        Email:
+            </td>
+            <td>
+                <asp:TextBox id="email" runat="server" TextMode="Email" placeholder="user@example.com" CssClass="textBox"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                Workers grup:
+            </td>
+            <td>
+        <asp:DropDownList runat="server" ID="parentID" DataTextField="title" DataValueField="id" DataSourceID="getParent" CssClass="dropDown"></asp:DropDownList>
+             </td>
+        </tr>
+        <tr>
+            <td align="left">
+        Agent position:
+             </td>
+            <td>
+                <asp:TextBox id="agenttitle" runat="server" placeholder="e.g. L1 agent,L2 Senior" CssClass="textBox"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+        Number of vacation days:
+             </td>
+            <td>
+                <asp:TextBox id="vacationdayleft" runat="server" type="number" placeholder="0" CssClass="textBox"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+
+            <td align="center" colspan="2">
+                <asp:Button id="submitButton" runat="server"  OnClick="SubmitForm" Text="Submit" CssClass="submitBtn" />
+             </td>
+        </tr>
+   </table>
+
+ 
  <%--Last name: <input type="text" name="lastname"><br />
  Email : <input type="email" name="email"><br />
             <select name="parentId">
@@ -31,9 +85,9 @@ Pozicija agenta: <input type="text" name="title" placeholder="npr: L1 Agent, L2 
           <input type="submit" value="Pošalji">--%>
     <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
                 ID="getParent" runat="server" SelectCommand="SELECT TOP (1000) [id],[title] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesParent]"></asp:SqlDataSource>
-    
-    
 
+    
+                   
     </asp:Content>
 
     
