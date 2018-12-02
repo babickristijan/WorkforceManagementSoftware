@@ -128,12 +128,14 @@
   <ItemGroup>
     <Content Include="AddWorker.aspx" />
     <Content Include="Scripts\loginpage.css" />
+    <Content Include="Scripts\Shifts.js" />
+    <Content Include="Scripts\Shifts.css" />
     <Content Include="Scripts\Workers.css" />
     <Content Include="Scripts\Workers.js" />
     <Content Include="Workers.aspx">
       <BrowseToURL>Workers</BrowseToURL>
     </Content>
-    <Content Include="EditShifts.aspx" />
+    <Content Include="Shifts.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -289,12 +291,11 @@
       <DependentUpon>Workers.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="EditShifts.aspx.cs">
-      <DependentUpon>EditShifts.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="Shifts.aspx.cs">
+      <DependentUpon>Shifts.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EditShifts.aspx.designer.cs">
-      <DependentUpon>EditShifts.aspx</DependentUpon>
+    <Compile Include="Shifts.aspx.designer.cs">
+      <DependentUpon>Shifts.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

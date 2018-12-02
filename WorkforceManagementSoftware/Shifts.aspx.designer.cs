@@ -10,6 +10,6 @@
 namespace WorkforceManagementSoftware {
     
     
-    public partial class EditShifts {
+    public partial class Shifts {
     }
 }

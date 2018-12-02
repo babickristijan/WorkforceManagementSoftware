@@ -61,7 +61,7 @@
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/Workers">Workers</a></li>
                        <li><a runat="server" href="~/AddWorker">AddWorker</a></li>
-                        <li><a runat="server" href="~/EditShifts">Edit shifts</a></li>
+                        <li><a runat="server" href="~/Shifts">Shifts</a></li>
                         
                         <li style="float:right;margin-top:7px;"><button type="button" class="btn btn-primary" >
                     <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" />
