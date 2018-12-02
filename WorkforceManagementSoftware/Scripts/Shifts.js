@@ -1,4 +1,5 @@
 ﻿$(function () { // document ready
+    initColors();
     var modal = document.getElementById('editShiftModal');
     // Get the <span> element that closes the modal
     var closeModal = document.getElementsByClassName("close")[0];
@@ -73,7 +74,7 @@
             success: function (data) {
                 console.log(data);
                 $('#shift_name' + id).html(name);
-                $('#shift_color' + id).html(color);
+                $('#shift_color' + id).html(color + "<div class='box-with-color' style='background-color:" + color+"' id='shift_color_represent"+id+"'></div>"      );
                 $('#shift_value' + id).html(value);
                 if (is_godisnji == 1) {
                     $("#is_godisnji_odmor"+id).html("DA");
@@ -110,3 +111,13 @@
         }
     });
 });
+
+function initColors() {
+    $(".box-with-color-td").each(function (index) {
+        let color = $(this).text();
+        let id = $(this).attr('id');
+        id = id.split("shift_color")[1];
+        $('#shift_color_represent' + id).css("background-color", color);
+    });
+    
+}

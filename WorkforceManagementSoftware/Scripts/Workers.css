@@ -56,3 +56,11 @@ tr, td {
         text-decoration: none;
         cursor: pointer;
     }
+
+.fa-pencil-square {
+    cursor: pointer;
+}
+
+.fa-trash {
+    cursor: pointer;
+}

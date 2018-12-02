@@ -327,18 +327,22 @@ $(document).ready(function () {
         let godisnji_value = $("#" + godisnji).html();
         current_godisnji = godisnji_value;
         console.log("dfsdfs", godisnji_value);
+        $(".selected-shift").css("outline","unset");
         $(".shifts").removeClass("selected-shift");
+       
         $(this).addClass("selected-shift");
         var classList = $(this).attr('class').split(/\s+/);
         $.each(classList, function (index, item) {
             if (item.indexOf("color-") >= 0) {
                 let color = item.split("color-")[1];
                 current_color = color;
-                
+               
             }
                
             
         });
+        $(this).css("outline", "5px solid   " + current_color);
+        
         
     });
 

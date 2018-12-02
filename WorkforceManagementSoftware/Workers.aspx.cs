@@ -38,7 +38,7 @@ namespace WorkforceManagementSoftware
             
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString + "MultipleActiveResultSets=true";
             using (SqlConnection connection = new SqlConnection(connStr))
-            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[title],[Parentid],[Email],[FirstName],[LastName],[VacationDayLeft] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild]", connection))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[title],[Parentid],[Email],[FirstName],[LastName],[VacationDayLeft] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild] ORDER BY [FirstName]", connection))
             {
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())

@@ -56,3 +56,23 @@ tr, td {
         text-decoration: none;
         cursor: pointer;
     }
+
+.box-with-color-td{
+    position:relative;
+}
+.box-with-color {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    width: 50px;
+    height: 20px;
+    transform: translateY(-50%);
+ 
+}
+
+.fa-pencil-square{
+    cursor:pointer;
+}
+.fa-trash {
+    cursor: pointer;
+}
