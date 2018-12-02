@@ -37,6 +37,9 @@ $(function () { // document ready
             }
    
             var current_id_shift;
+             var current_color;
+            var current_godisnji;
+
             $("#lightboxClose").click(function () {
                 $("#modal-view").hide();
 
@@ -65,15 +68,25 @@ $(function () { // document ready
                         tempObject.children = tempChildren;
                         finalResource.push(tempObject);
                     }
+                    
+                    console.log(data.d.Data[0][0]);
                     $.each(data.d.Data[0][0], function (i, v) {
+
+                        let resizeableOption = true;
+                        if (v.godisnji == "1") {
+                            resizeableOption = false;
+                        }
                         events.push({
                             id: v.ID,
                             resourceId: v.ResourceId,
                             start: moment(v.Start),
                             end: v.End != null ? moment(v.End) : null,
-                            title: v.Title
+                            title: v.Title,
+                            color: v.color,
+                            godisnji: v.godisnji,
+                            durationEditable: resizeableOption
                         });
-
+                        
                        
 
                     });
@@ -113,9 +126,11 @@ $(function () { // document ready
                     eventClick: function (calEvent, jsEvent, view) {
 
                         //ovdje treba napraviti modal za update eventa i dellete
-
+                        console.log("joe", calEvent);
                         modal.style.display = "block";
                         globalEventId = calEvent.id;
+                        $("#godisnji_modal").val(calEvent.godisnji);
+                        $("#resource_id_godisnji").val(calEvent.resourceId);
                         
                         //alert('Event: ' + calEvent.title);
                         //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -129,7 +144,8 @@ $(function () { // document ready
                     eventOverlap: false,
                     dayClick: function (date, jsEvent, view, resourceObj) {
                       //  alert(date.format());
-                     //   $("#modal-view").show();
+                        //   $("#modal-view").show();
+                        
                         let clickDate = new Date(date.format());
                         clickDate = (clickDate.getMonth() + 1) + '/' + clickDate.getDate() + '/' + clickDate.getFullYear();
 
@@ -256,9 +272,9 @@ function updateShift(idSmjene, idEventa, title, modal) {
 
 function deleteEvent(idEventa, modal) {
     if (confirm("Are you sure?")) {
-        let data = JSON.stringify({
-            "idEventa": idEventa
-        });
+        let deletegodisnji = $("#godisnji_modal").val();
+        let resource_id_godisnji = $("#resource_id_godisnji").val();
+        let data = JSON.stringify({ "idEventa": idEventa, "godisnji": deletegodisnji, "resource_id_godisnji": resource_id_godisnji});
         $.ajax({
             type: "POST",
             url: "Myservice.asmx/DeleteEvent",
@@ -280,9 +296,23 @@ function deleteEvent(idEventa, modal) {
 
 $(document).ready(function () {
     $(".shifts").click(function () {
+
         current_id_shift = $(this).attr("id");
+        let godisnji = "is_godisnji" + current_id_shift;
+        console.log("godisnji", godisnji);
+        let godisnji_value = $("#" + godisnji).html();
+        current_godisnji = godisnji_value;
+        console.log("dfsdfs", godisnji_value);
         $(".shifts").removeClass("selected-shift");
         $(this).addClass("selected-shift");
+        var classList = $(this).attr('class').split(/\s+/);
+        $.each(classList, function (index, item) {
+            if (item.indexOf("color-") >= 0) {
+                let color = item.split("color-")[1];
+                current_color = color;
+            }
+            
+        });
         
     });
 
@@ -293,11 +323,15 @@ $(document).ready(function () {
 
 function insertAjaxEvent() {
     if (confirm("Are you sure you want to insert new shift?")) {
+        
         let startDate = $("#startDate").val();
         let endDate = $("#endDate").val();
-        console.log("seba", endDate);
         let resourceIdHidden = $("#resourceIdHidden").val();
-        let data = JSON.stringify({ "startDate": startDate, "endDate": endDate, "shiftPicker": current_id_shift, "resourceIdHidden": resourceIdHidden });
+        let resizeableOption = true;
+        if (current_godisnji == "1") {
+            resizeableOption = false;
+        }
+        let data = JSON.stringify({ "startDate": startDate, "endDate": endDate, "shiftPicker": current_id_shift, "resourceIdHidden": resourceIdHidden, "godisnji": current_godisnji });
         $.ajax({
             type: "POST",
             url: "Myservice.asmx/PushEvents",
@@ -313,7 +347,10 @@ function insertAjaxEvent() {
                     resourceId: resourceIdHidden,
                     start: moment(startDate),
                     end: moment(endDate),
-                    title: naziv
+                    title: naziv,
+                    color: current_color,
+                    resourceEditable: false, 
+                    durationEditable: resizeableOption
                 };
                 $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
             }, error: function (error) {

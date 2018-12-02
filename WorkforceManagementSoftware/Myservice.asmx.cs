@@ -31,6 +31,8 @@ namespace WorkforceManagementSoftware
         public string Start;
         public string End;
         public string Title;
+        public string color;
+        public string godisnji;
 
     }
 
@@ -94,6 +96,8 @@ namespace WorkforceManagementSoftware
                     {
                 var naziv_smjene = "";
                 var id_smjene = "";
+                var godisnji = "";
+                var color = "";
                 EventSeba EventSeba = new EventSeba();
                 EventSeba.ID = reader["ID"].ToString();
                 EventSeba.ResourceId = reader["ResourceId"].ToString();
@@ -103,7 +107,7 @@ namespace WorkforceManagementSoftware
                  id_smjene = reader["id_smjene"].ToString();
                  events.Add(EventSeba);
 
-                        using (SqlCommand command1 = new SqlCommand("SELECT TOP (100) [id],[naziv],[color]FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] where id =" + id_smjene, connection))
+                        using (SqlCommand command1 = new SqlCommand("SELECT TOP (100) [id],[naziv],[color],[is_godisnji_odmor],[color]FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] where id =" + id_smjene, connection))
                         {
                             
                             using (SqlDataReader reader1 = command1.ExecuteReader())
@@ -113,7 +117,11 @@ namespace WorkforceManagementSoftware
                                 {
 
                                     naziv_smjene = reader1["naziv"].ToString();
+                                    godisnji = reader1["is_godisnji_odmor"].ToString();
+                                    color = reader1["color"].ToString();
                                     EventSeba.Title = naziv_smjene;
+                                    EventSeba.color = color;
+                                    EventSeba.godisnji = godisnji;
 
 
 
@@ -212,21 +220,31 @@ namespace WorkforceManagementSoftware
         }
        
         [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
-        public JsonResult PushEvents(string startDate, string endDate, string shiftPicker, string resourceIdHidden)
+        public JsonResult PushEvents(string startDate, string endDate, string shiftPicker, string resourceIdHidden, string godisnji)
         {
             int mojsql;
             var nazivSmjene = "";
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             SqlConnection con = new SqlConnection(connStr);
+        
 
             con.Open();
+            if (godisnji == "1")
+            {
+                SqlCommand cmd1 = con.CreateCommand();
+                cmd1.CommandText = "UPDATE ResourcesChild SET [VacationDayLeft] = [VacationDayLeft]-1 WHERE[ID] = @idRes" ;
+                cmd1.Parameters.AddWithValue("@idRes", resourceIdHidden);
+               
+
+                cmd1.ExecuteNonQuery();
+            }
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandText = "INSERT INTO [unipuhrhost25com_workforcemanagementsoftware].dbo.Events (ResourceId, Start, \"End\", id_smjene) VALUES(@id, @startdate,@endDate, @shiftPicker)";
             cmd.Parameters.AddWithValue("@id", resourceIdHidden);
             cmd.Parameters.AddWithValue("@startdate", startDate);
             cmd.Parameters.AddWithValue("@endDate", endDate);
             cmd.Parameters.AddWithValue("@shiftPicker", shiftPicker);
-
+            
             cmd.ExecuteNonQuery();
 
             cmd.CommandText = "Select @@Identity";
@@ -316,13 +334,23 @@ namespace WorkforceManagementSoftware
 
 
         [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
-        public string DeleteEvent(string idEventa)
+        public string DeleteEvent(string idEventa, string godisnji, string resource_id_godisnji)
         {
 
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             SqlConnection con = new SqlConnection(connStr);
 
             con.Open();
+            if(godisnji == "1")
+            {
+                SqlCommand cmd1 = con.CreateCommand();
+                cmd1.CommandText = "UPDATE ResourcesChild SET [VacationDayLeft] = [VacationDayLeft]+1 WHERE [ID] = @id";
+                cmd1.Parameters.AddWithValue("@id", resource_id_godisnji);
+
+                
+
+                cmd1.ExecuteNonQuery();
+            }
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandText = "DELETE FROM Events WHERE [ID] = @id";
             cmd.Parameters.AddWithValue("@id", idEventa);
