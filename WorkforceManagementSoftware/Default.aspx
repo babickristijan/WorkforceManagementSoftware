@@ -13,11 +13,12 @@
             <h4>Shifts</h4>
             <asp:Repeater ID="Repeater1" runat="server" DataSourceID="getShifts">
                 <ItemTemplate>
-                    <div class='shifts' id='<%# Eval("id") %>'><%# Eval("naziv") %></div>
+                    <div class='shifts color-<%# Eval("color") %>' id='<%# Eval("id") %>'><%# Eval("naziv") %></div>
+                    <p style="display:none;" id="is_godisnji<%# Eval("id") %>"><%# Eval("is_godisnji_odmor") %></p>
                 </ItemTemplate>
             </asp:Repeater>
             <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
-                ID="getShifts" runat="server" SelectCommand="SELECT TOP (1000) [id] ,[naziv] ,[color] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene]"></asp:SqlDataSource>
+                ID="getShifts" runat="server" SelectCommand="SELECT TOP (1000) [id] ,[naziv] ,[color],[is_godisnji_odmor] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene]"></asp:SqlDataSource>
         </div>
         <div id='calendar'></div>
         <div style='clear: both'></div>
@@ -47,9 +48,10 @@
 
     </div>
 
-    
+    <input type="hidden" id="godisnji_modal" />
     <input type="hidden" id="startDate">
     <input type="hidden" id="resourceIdHidden">
     <input type="hidden" id="endDate">
+    <input type="hidden" id="resource_id_godisnji" />
    
 </asp:Content>
