@@ -131,7 +131,15 @@ $(function () { // document ready
                         globalEventId = calEvent.id;
                         $("#godisnji_modal").val(calEvent.godisnji);
                         $("#resource_id_godisnji").val(calEvent.resourceId);
-                        
+                        let godisnji = calEvent.godisnji;
+               
+                        if (godisnji == "1") {
+                            $("#smjeneModal").hide();
+                            $("#izmjeniModal").hide();
+                        } else {
+                            $("#smjeneModal").show();
+                            $("#izmjeniModal").show();
+                        }
                         //alert('Event: ' + calEvent.title);
                         //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
                         //alert('View: ' + view.name);
@@ -236,7 +244,7 @@ function updateAjaxEvent(event, revertFunc) {
         data: data,
         dataType: "json",
         success: function (data) {
-
+           
         }, error: function (error) {
             alert('failed');
         },
@@ -260,8 +268,24 @@ function updateShift(idSmjene, idEventa, title, modal) {
             success: function (data) {
                 var evento = $("#calendar").fullCalendar('clientEvents', idEventa);
                 evento[0].title = title;
+                
+                let test = $("#smjeneModal").val();
+                var classList = $("#" + test).attr('class').split(/\s+/);
+                let color;
+                $.each(classList, function (index, item) {
+                    if (item.indexOf("color-") >= 0) {
+                       color = item.split("color-")[1];
+                        console.log(color);
+
+                    }
+
+
+                });
+                console.log("dasijoadsjo", test);
+                evento[0].color = color ;
                 $('#calendar').fullCalendar('updateEvent', evento[0]);
                 modal.style.display = "none";
+                
             },
             error: function (error) {
                 alert('failed');
@@ -310,7 +334,9 @@ $(document).ready(function () {
             if (item.indexOf("color-") >= 0) {
                 let color = item.split("color-")[1];
                 current_color = color;
+                
             }
+               
             
         });
         
@@ -350,6 +376,7 @@ function insertAjaxEvent() {
                     title: naziv,
                     color: current_color,
                     resourceEditable: false, 
+                    godisnji: current_godisnji,
                     durationEditable: resizeableOption
                 };
                 $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
