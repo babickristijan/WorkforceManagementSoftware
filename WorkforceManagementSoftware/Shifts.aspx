@@ -6,9 +6,9 @@
     <script src="Scripts/Shifts.js"></script>
   
     <div class="wrap-padding" id='wrap'>
-     <%--   <div id="employee-wrapper">
-            <asp:Button ID="addANewWorker" runat="server" Text="Add a New Worker" CssClass="btn btn-primary" PostBackUrl="~/AddWorker.aspx" />
-        </div>--%>
+        <div id="shift-wrapper">
+            <asp:Button ID="addANewShift" runat="server" Text="Add a New Shift" CssClass="btn btn-primary" PostBackUrl="~/AddShift.aspx" />
+        </div>
         <table border="1" style="margin: 2px;" id="Shifts">
             <tr class="tableHeader">
                 <td style="display:none"">id</td>
@@ -55,6 +55,7 @@
                color: <input type="text" id="shift_color" name="shift_color"  />
                Shift value(in hours): <input type="number"  id="shift_value" name="shift_value"  />
                  <input type="hidden" id="shift_id" name="shift_id"  />
+              is godisnji? : <input type="checkbox"  id="shift_is_godisnji" name="shift_is_godisnji"  />
             </form>
 
             <button type="button" id="updateShift">Izmjeni</button>

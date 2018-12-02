@@ -477,5 +477,109 @@ namespace WorkforceManagementSoftware
 
             return "";
         }
+
+        [WebMethod]
+        public JsonResult GetDataForEditShift(string id_shift)
+        {
+
+            string id = "";
+            string name = "";
+            string color = "";
+            string value = "";
+            string is_godisnji = "";
+    
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString + "MultipleActiveResultSets=true";
+            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[naziv],[color],[SmjenaSati],[is_godisnji_odmor] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Smjene] WHERE id=" + id_shift, connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+
+                        id = reader["id"].ToString();
+                        name = reader["naziv"].ToString();
+                        color = reader["color"].ToString();
+                        value = reader["SmjenaSati"].ToString();
+                        is_godisnji = reader["is_godisnji_odmor"].ToString();
+ 
+                    }
+
+                }
+                connection.Close();
+
+            }
+
+
+            string[] array = new string[] { id, name, color, value, is_godisnji };
+
+
+
+            return new JsonResult { Data = array, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+
+        }
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string UpdateShift(string id, string name, string color, string value, string is_godisnji)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "UPDATE Smjene SET [naziv] =  @name,[color] = @color,[SmjenaSati] = @value,[is_godisnji_odmor] = @is_godisnji  WHERE[id] = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.Parameters.AddWithValue("@color", color);
+            cmd.Parameters.AddWithValue("@value", value);
+            cmd.Parameters.AddWithValue("@is_godisnji", Convert.ToBoolean(is_godisnji));
+            cmd.ExecuteNonQuery();
+
+
+
+
+
+
+            con.Close();
+
+            return "";
+        }
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string DeleteShift(string id)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+
+            cmd.CommandText = "DELETE FROM Events WHERE [id_smjene] = @smjena_id";
+            cmd.Parameters.AddWithValue("@smjena_id", id);
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "DELETE FROM Smjene WHERE [id] = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+
+
+
+
+
+
+
+            con.Close();
+
+            return "";
+        }
     }
 }
