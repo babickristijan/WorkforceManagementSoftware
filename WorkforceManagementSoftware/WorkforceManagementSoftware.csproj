@@ -130,6 +130,8 @@
     <Content Include="Scripts\loginpage.css" />
     <Content Include="Scripts\Shifts.js" />
     <Content Include="Scripts\Shifts.css" />
+    <Content Include="Scripts\spectrum.css" />
+    <Content Include="Scripts\spectrum.js" />
     <Content Include="Scripts\Workers.css" />
     <Content Include="Scripts\Workers.js" />
     <Content Include="Workers.aspx">
