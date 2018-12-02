@@ -134,6 +134,7 @@
     <Content Include="Scripts\spectrum.js" />
     <Content Include="Scripts\Workers.css" />
     <Content Include="Scripts\Workers.js" />
+    <Content Include="AddShift.aspx" />
     <Content Include="Workers.aspx">
       <BrowseToURL>Workers</BrowseToURL>
     </Content>
@@ -286,6 +287,13 @@
       <DependentUpon>AddWorker.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="AddShift.aspx.cs">
+      <DependentUpon>AddShift.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddShift.aspx.designer.cs">
+      <DependentUpon>AddShift.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Workers.aspx.cs">
       <DependentUpon>Workers.aspx</DependentUpon>
     </Compile>
