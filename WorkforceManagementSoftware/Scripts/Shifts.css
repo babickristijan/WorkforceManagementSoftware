@@ -14,12 +14,36 @@ tr, td {
 }
 
 .btn-primary {
-    float: right
+    float: right;
+    margin-top: 4px;
+    margin-bottom: 2px;
 }
 
 .tableHeader {
-    background-color: lightgray;
+    background-color: #474747;
+    color: #FFF;
 }
+
+.fa-pencil-square {
+    color: #474747;
+    font-size: 20px;
+}
+
+.fa-pencil-square:hover {
+        color: #333;
+        transform:scale(1.1);
+ }
+
+.fa-trash {
+    color: #BD0000;
+    font-size: 20px;
+}
+
+.fa-trash:hover {
+        color: #B30000;
+        transform: scale(1.1);
+}
+
 
 .modal-event {
     display: none;

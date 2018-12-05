@@ -14,10 +14,10 @@
         <table border="1" style="margin: 2px;" id="Shifts">
             <tr class="tableHeader">
                 <td style="display:none"">id</td>
-                <td>name</td>
-                <td>color</td>
-                <td>shift value</td>
-                <td>godisnji odmor</td>
+                <td>Name</td>
+                <td>Color</td>
+                <td>Shift value</td>
+                <td>Godisnji odmor</td>
                 <td>Edit</td>
                 <td>Delete</td>
             </tr>

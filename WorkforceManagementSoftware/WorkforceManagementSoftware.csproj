@@ -133,6 +133,7 @@
     <Content Include="Images\dark.jpg" />
     <Content Include="Images\dhh-logo-top.png" />
     <Content Include="Images\images.jpg" />
+    <Content Include="Scripts\addShift.css" />
     <Content Include="Scripts\addWorker.css" />
     <Content Include="Scripts\loginpage.css" />
     <Content Include="Scripts\Shifts.js" />

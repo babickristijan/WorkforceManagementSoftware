@@ -14,11 +14,11 @@
             <tr class="tableHeader">
                 <td>First Name</td>
                 <td>Last Name</td>
-                <td>VacationLeft</td>
+                <td>Vacation Left</td>
                 <td>Hours</td>
                 <td>Parent Category</td>
                 <td>Agent Title</td>
-                 <td>Email</td>
+                <td>Email</td>
                 <td>Edit</td>
                 <td>Delete</td>
             </tr>

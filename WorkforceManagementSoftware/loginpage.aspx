@@ -19,7 +19,7 @@
                         <td>
                             <table cellpadding="0">
                                 <tr>
-                                    <td align="center" colspan="2" class="title">Workforce menagement</td>
+                                    <td align="center" colspan="2" class="title">Workforce Management</td>
                                 </tr>
                                 <tr>
                                     <td align="right">
