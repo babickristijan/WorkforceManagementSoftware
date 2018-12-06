@@ -56,13 +56,14 @@
     <div id="editWorkerModal" class="modal-event">
 
         <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
+        <div class="modal-content"> 
+            <div class="formBlock">
+                <span class="close">&times;</span>
             <form>
-               first name: <input type="text" id="firstname" name="firstname"  />
-              last name:  <input type="text" id="lastname" name="lastname"  />
-               Vacation days left: <input type="number"  id="vacationDayLeft" name="vacationDayLeft"  />
-               Parent Category: <select id="workerCategory" name="workerCategory">
+              <label>First Name:</label><input type="text" id="firstname" name="firstname"  /><br />
+              <label>Last Name:</label><input type="text" id="lastname" name="lastname"  /><br />
+              <label>Vacation days left:</label><input type="number"  id="vacationDayLeft" name="vacationDayLeft"  /><br />
+              <label>Parent Category:</label><select id="workerCategory" name="workerCategory">
                     <asp:Repeater ID="editWorker" runat="server" DataSourceID="getWorkerCategory">
                         <ItemTemplate>
                             <option  value='<%# Eval("id") %>'><%# Eval("title") %></option>
@@ -70,12 +71,12 @@
                     </asp:Repeater>
                   <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
                     ID="getWorkerCategory" runat="server" SelectCommand="SELECT TOP (1000) [id],[title] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesParent]"></asp:SqlDataSource>
-                </select>
-               agent title: <input type="text" id="agentTitle" name="agentTitle"  />
-               email: <input type="email" id="email" name="email"  />
+                </select><br />
+              <label>Agent Title:</label><input type="text" id="agentTitle" name="agentTitle"  /><br />
+              <label>Email:</label><input type="email" id="email" name="email"  /><br />
                  <input type="hidden" id="worker_id" name="worker_id"  />
             </form>
-
+            </div>
             <button type="button" id="updateWorker">Izmjeni</button>
       
         </div>

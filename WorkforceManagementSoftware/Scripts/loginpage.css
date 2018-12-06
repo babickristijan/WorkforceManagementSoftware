@@ -20,13 +20,13 @@ form {
 }
 
 td {
-    color: #6600cc;
+    color: #f1f1f1;
     padding-bottom: 25px;
 }
 
 .title {
     font-size: 50px;
-    background: -webkit-linear-gradient(#6600cc, #cc00ff);
+    background-color: #f1f1f1;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding-bottom: 25px;
@@ -35,7 +35,6 @@ td {
 .textBox {
     border: 1px solid grey;
     border-radius: 4px;
-    font-family: 'Arial Rounded MT';
 }
 
 .checkBox {
