@@ -50,7 +50,7 @@
         Agent position:
              </td>
             <td>
-                <asp:TextBox id="agenttitle" runat="server" placeholder="e.g. L1 agent,L2 Senior" CssClass="textBox"></asp:TextBox>
+                <asp:DropDownList runat="server" ID="positionID" DataTextField="naziv_pozicije" DataValueField="id" DataSourceID="getPositions" CssClass="dropDown"></asp:DropDownList>
             </td>
         </tr>
         <tr>
@@ -85,6 +85,8 @@ Pozicija agenta: <input type="text" name="title" placeholder="npr: L1 Agent, L2 
           <input type="submit" value="Pošalji">--%>
     <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
                 ID="getParent" runat="server" SelectCommand="SELECT TOP (1000) [id],[title] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesParent]"></asp:SqlDataSource>
+     <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
+                ID="getPositions" runat="server" SelectCommand="SELECT TOP (1000) [id],[naziv_pozicije] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Positions]"></asp:SqlDataSource>
 
     
                    

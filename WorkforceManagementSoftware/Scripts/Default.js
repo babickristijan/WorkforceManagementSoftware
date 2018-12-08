@@ -61,7 +61,7 @@ $(function () { // document ready
                         var tempChildren = [];
                         for (var j = 0; j < resources.length; j++) {
                             if (resources[j].parentid == parents[i].id) {
-                                var tempObjectChildren = { id: resources[j].id, title: resources[j].title };
+                                var tempObjectChildren = { id: resources[j].id, title: resources[j].firstname + " " + resources[j].lastname + " (" +  resources[j].title + ")"  };
                                 tempChildren.push(tempObjectChildren);
                             }
                         }
@@ -84,7 +84,8 @@ $(function () { // document ready
                             title: v.Title,
                             color: v.color,
                             godisnji: v.godisnji,
-                            durationEditable: resizeableOption
+                            durationEditable: resizeableOption,
+                            allDay:true
                         });
                         
                        
@@ -275,13 +276,13 @@ function updateShift(idSmjene, idEventa, title, modal) {
                 $.each(classList, function (index, item) {
                     if (item.indexOf("color-") >= 0) {
                        color = item.split("color-")[1];
-                        console.log(color);
+                       
 
                     }
 
 
                 });
-                console.log("dasijoadsjo", test);
+
                 evento[0].color = color ;
                 $('#calendar').fullCalendar('updateEvent', evento[0]);
                 modal.style.display = "none";
@@ -381,7 +382,8 @@ function insertAjaxEvent() {
                     color: current_color,
                     resourceEditable: false, 
                     godisnji: current_godisnji,
-                    durationEditable: resizeableOption
+                    durationEditable: resizeableOption,
+                    allDay: true
                 };
                 $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
             }, error: function (error) {
@@ -420,7 +422,9 @@ function addfuckingevents() {
                 end: date,
                 title: currentHoliday.name,
                 rendering: 'background',
-                color: 'rgba(255,0,0,0.3)'
+                color: 'rgba(255,0,0,0.3)',
+                allDay: true
+
             });
            
 

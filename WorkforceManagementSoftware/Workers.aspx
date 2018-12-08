@@ -32,7 +32,7 @@
                         <td id="VacationDayLeft<%= site.id %>"><%= site.VacationDayLeft %></td>
                         <td id="hours<%= site.id %>"><%= site.hours %></td>
                         <td id="parentCategory<%= site.id %>"><%= site.ParentId %></td>
-                        <td id="title<%= site.id %>"><%= site.title %></td>
+                        <td id="position<%= site.id %>"><%= site.position %></td>
                         <td id="email<%= site.id %>"><%= site.Email %></td>
                         <td id="updateCell<%= site.id %>">
                             <i  id="update<%= site.id %>" class="fa fa-pencil-square openUpdateWorker" aria-hidden="true"></i>
@@ -72,7 +72,16 @@
                   <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
                     ID="getWorkerCategory" runat="server" SelectCommand="SELECT TOP (1000) [id],[title] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesParent]"></asp:SqlDataSource>
                 </select><br />
-              <label>Agent Title:</label><input type="text" id="agentTitle" name="agentTitle"  /><br />
+                <label>Worker Position:</label>
+                <select id="workerPosition" name="workerPosition">
+                    <asp:Repeater ID="editPosition" runat="server" DataSourceID="getPositions">
+                        <ItemTemplate>
+                            <option  value='<%# Eval("id") %>'><%# Eval("naziv_pozicije") %></option>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                  <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
+                ID="getPositions" runat="server" SelectCommand="SELECT TOP (1000) [id],[naziv_pozicije] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Positions]"></asp:SqlDataSource>
+                </select> <br />
               <label>Email:</label><input type="email" id="email" name="email"  /><br />
                  <input type="hidden" id="worker_id" name="worker_id"  />
             </form>

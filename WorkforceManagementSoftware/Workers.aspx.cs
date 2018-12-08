@@ -13,7 +13,7 @@ namespace WorkforceManagementSoftware
     public class Worker
     {
         public string id;
-        public string title;
+        public string position;
         public string ParentId;
         public string Email;
         public string FirstName;
@@ -38,7 +38,7 @@ namespace WorkforceManagementSoftware
             
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString + "MultipleActiveResultSets=true";
             using (SqlConnection connection = new SqlConnection(connStr))
-            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[title],[Parentid],[Email],[FirstName],[LastName],[VacationDayLeft] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild] ORDER BY [FirstName]", connection))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[Positionid],[Parentid],[Email],[FirstName],[LastName],[VacationDayLeft] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild] ORDER BY [FirstName]", connection))
             {
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -48,7 +48,7 @@ namespace WorkforceManagementSoftware
                     {
                         Worker Worker = new Worker();
                         Worker.id = reader["id"].ToString();
-                        Worker.title = reader["title"].ToString();
+                        var position_id = reader["Positionid"].ToString();
                         var parent_id= reader["Parentid"].ToString();
                      
                         Worker.FirstName = reader["FirstName"].ToString();
@@ -66,6 +66,25 @@ namespace WorkforceManagementSoftware
                                 {
 
                                     Worker.ParentId = reader2["title"].ToString();
+
+                                }
+
+
+
+
+                            }
+
+                        }
+                        using (SqlCommand command3 = new SqlCommand("SELECT TOP (1000) [naziv_pozicije] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Positions] WHERE id =" + position_id, connection))
+                        {
+
+                            using (SqlDataReader reader3 = command3.ExecuteReader())
+                            {
+
+                                while (reader3.Read())
+                                {
+
+                                    Worker.position = reader3["naziv_pozicije"].ToString();
 
                                 }
 

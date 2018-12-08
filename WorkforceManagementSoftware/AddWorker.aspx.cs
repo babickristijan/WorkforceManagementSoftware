@@ -24,7 +24,8 @@ namespace WorkforceManagementSoftware
             string lastName = lastname.Text.ToString();
             string Email = email.Text.ToString();
             int ParentId = Convert.ToInt32(parentID.SelectedValue);
-            String Title = agenttitle.Text.ToString();
+            int PositionId = Convert.ToInt32(positionID.SelectedValue);
+          //  String Title = agenttitle.Text.ToString();
             int VacationDayLeft = Convert.ToInt32(vacationdayleft.Text);
 
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
@@ -32,12 +33,12 @@ namespace WorkforceManagementSoftware
 
             con.Open();
             SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = "INSERT INTO [unipuhrhost25com_workforcemanagementsoftware].dbo.ResourcesChild (title, Parentid, Email, FirstName, LastName, VacationDayLeft) VALUES(@Title, @parentID,@email, @firstname, @lastname,@VacationDayLeft)";
+            cmd.CommandText = "INSERT INTO [unipuhrhost25com_workforcemanagementsoftware].dbo.ResourcesChild (Parentid,Positionid, Email, FirstName, LastName, VacationDayLeft) VALUES(@parentID,@PositionId,@email, @firstname, @lastname,@VacationDayLeft)";
             cmd.Parameters.AddWithValue("@firstname", firstName);
             cmd.Parameters.AddWithValue("@lastname", lastName);
             cmd.Parameters.AddWithValue("@email", Email);
             cmd.Parameters.AddWithValue("@parentID", ParentId);
-            cmd.Parameters.AddWithValue("@Title", Title);
+            cmd.Parameters.AddWithValue("@PositionId", PositionId);
             cmd.Parameters.AddWithValue("@VacationDayLeft", VacationDayLeft);
 
             cmd.ExecuteNonQuery();

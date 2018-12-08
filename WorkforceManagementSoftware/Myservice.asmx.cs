@@ -51,6 +51,8 @@ namespace WorkforceManagementSoftware
         public string id;
         public string title;
         public string parentid;
+        public string firstname;
+        public string lastname;
 
     }
 
@@ -154,7 +156,7 @@ namespace WorkforceManagementSoftware
 
             string connStr1 = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             using (SqlConnection connection1 = new SqlConnection(connStr))
-            using (SqlCommand command1 = new SqlCommand("SELECT TOP (1000) [id],[title],[Parentid] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild]", connection1))
+            using (SqlCommand command1 = new SqlCommand("SELECT TOP (1000) [id],[Positionid],[Parentid],[FirstName],[LastName] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild]", connection1))
             {
                 connection1.Open();
                 using (SqlDataReader reader1 = command1.ExecuteReader())
@@ -162,10 +164,34 @@ namespace WorkforceManagementSoftware
 
                     while (reader1.Read())
                     {
+
+                        var position_id = reader1["Positionid"].ToString();
                         ResourcesChild resources = new ResourcesChild();
+                        using (SqlCommand command3 = new SqlCommand("SELECT TOP (1000) [naziv_pozicije] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Positions] WHERE id =" + position_id, connection1))
+                        {
+
+                            using (SqlDataReader reader3 = command3.ExecuteReader())
+                            {
+
+                                while (reader3.Read())
+                                {
+
+                                 resources.title = reader3["naziv_pozicije"].ToString();
+
+                                }
+
+
+
+
+                            }
+
+                        }
+                       
                         resources.id = reader1["id"].ToString();
-                        resources.title = reader1["title"].ToString();
+                       
                         resources.parentid = reader1["Parentid"].ToString();
+                        resources.firstname = reader1["FirstName"].ToString();
+                        resources.lastname = reader1["LastName"].ToString();
 
 
                         sljakeri.Add(resources);
@@ -404,7 +430,7 @@ namespace WorkforceManagementSoftware
         {
 
             string id="";
-            string title= "";
+            string position_id= "";
             string parent_id = "";
             string email = "";
             string firstname = "";
@@ -413,7 +439,7 @@ namespace WorkforceManagementSoftware
 
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString + "MultipleActiveResultSets=true";
             using (SqlConnection connection = new SqlConnection(connStr))
-            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[title],[Parentid],[Email],[FirstName],[LastName],[VacationDayLeft] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild] WHERE id="+id_worker, connection))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[Positionid],[Parentid],[Email],[FirstName],[LastName],[VacationDayLeft] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesChild] WHERE id="+id_worker, connection))
             {
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -423,7 +449,7 @@ namespace WorkforceManagementSoftware
                     {
                        
                         id = reader["id"].ToString();
-                        title = reader["title"].ToString();
+                        position_id = reader["Positionid"].ToString();
                         parent_id = reader["Parentid"].ToString();
                         email = reader["Email"].ToString();
                         firstname = reader["FirstName"].ToString();
@@ -439,7 +465,7 @@ namespace WorkforceManagementSoftware
             }
 
 
-            string [] array=new string[] { id,title,parent_id,email,firstname,lastname,vacation_day_left};
+            string [] array=new string[] { id, position_id, parent_id,email,firstname,lastname,vacation_day_left};
    
 
 
@@ -450,7 +476,7 @@ namespace WorkforceManagementSoftware
         }
 
         [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
-        public string UpdateWorker(string id, string firstname, string lastname, string vacationDayLeft, string workerCategory, string agentTitle, string email)
+        public string UpdateWorker(string id, string firstname, string lastname, string vacationDayLeft, string workerCategory, string workerPosition, string email)
         {
 
             string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
@@ -458,9 +484,9 @@ namespace WorkforceManagementSoftware
 
             con.Open();
             SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = "UPDATE ResourcesChild SET [title] =  @title,[Parentid] = @parent_id,[Email] = @email,[FirstName] = @firstname,[LastName] = @lastname,[VacationDayLeft] = @vacation_left   WHERE[id] = @id";
+            cmd.CommandText = "UPDATE ResourcesChild SET [Positionid] =  @positionid,[Parentid] = @parent_id,[Email] = @email,[FirstName] = @firstname,[LastName] = @lastname,[VacationDayLeft] = @vacation_left   WHERE[id] = @id";
             cmd.Parameters.AddWithValue("@id", id);
-            cmd.Parameters.AddWithValue("@title", agentTitle);
+            cmd.Parameters.AddWithValue("@positionid", workerPosition);
             cmd.Parameters.AddWithValue("@firstname", firstname);
             cmd.Parameters.AddWithValue("@lastname", lastname);
             cmd.Parameters.AddWithValue("@email", email);

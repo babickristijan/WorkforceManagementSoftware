@@ -49,13 +49,13 @@ namespace WorkforceManagementSoftware {
         protected global::System.Web.UI.WebControls.DropDownList parentID;
         
         /// <summary>
-        /// agenttitle control.
+        /// positionID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox agenttitle;
+        protected global::System.Web.UI.WebControls.DropDownList positionID;
         
         /// <summary>
         /// vacationdayleft control.
@@ -83,5 +83,14 @@ namespace WorkforceManagementSoftware {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource getParent;
+        
+        /// <summary>
+        /// getPositions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource getPositions;
     }
 }
