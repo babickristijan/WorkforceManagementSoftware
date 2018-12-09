@@ -48,11 +48,11 @@ namespace WorkforceManagementSoftware
                         Shift.is_godisnji_odmor = reader["is_godisnji_odmor"].ToString();
                         if (Shift.is_godisnji_odmor == "1")
                         {
-                            Shift.is_godisnji_odmor = "DA";
+                            Shift.is_godisnji_odmor = "<i class='fa fa-check' aria -hidden='true' ></i>";
                         }
                         else
                         {
-                            Shift.is_godisnji_odmor = "NE";
+                            Shift.is_godisnji_odmor = "<i class='fa fa-ban' aria-hidden='true'></i>";
                         }
                         ListOfShifts.Add(Shift);
 

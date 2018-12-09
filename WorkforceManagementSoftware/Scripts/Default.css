@@ -10,7 +10,8 @@
 
 #shift-wrapper {
     float: left;
-    width: 150px;
+    width:15%;
+    max-width: 150px;
     padding: 0 10px;
     border: 1px solid #ccc;
     background: #eee;
@@ -41,7 +42,7 @@
 
 #calendar {
    float: right;
-   width: 900px;
+   width: 80%;
 }   
 
 .wrap-padding {

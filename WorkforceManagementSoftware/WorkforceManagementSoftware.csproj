@@ -126,16 +126,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddCategories.aspx" />
+    <Content Include="AddPosition.aspx" />
     <Content Include="AddWorker.aspx" />
+    <Content Include="Categories.aspx" />
     <Content Include="Images\background.jpg" />
     <Content Include="Images\background1.jpg" />
     <Content Include="Images\blurBlue.jpg" />
     <Content Include="Images\dark.jpg" />
     <Content Include="Images\dhh-logo-top.png" />
     <Content Include="Images\images.jpg" />
+    <Content Include="Positions.aspx" />
+    <Content Include="Scripts\AddCategories.css" />
+    <Content Include="Scripts\addPosition.css" />
     <Content Include="Scripts\addShift.css" />
     <Content Include="Scripts\addWorker.css" />
+    <Content Include="Scripts\Categories.css" />
+    <Content Include="Scripts\Categories.js" />
     <Content Include="Scripts\loginpage.css" />
+    <Content Include="Scripts\position.css" />
+    <Content Include="Scripts\position.js" />
     <Content Include="Scripts\Shifts.js" />
     <Content Include="Scripts\Shifts.css" />
     <Content Include="Scripts\spectrum.css" />
@@ -287,6 +297,20 @@
     <Content Include="Views\web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCategories.aspx.cs">
+      <DependentUpon>AddCategories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddCategories.aspx.designer.cs">
+      <DependentUpon>AddCategories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddPosition.aspx.cs">
+      <DependentUpon>AddPosition.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddPosition.aspx.designer.cs">
+      <DependentUpon>AddPosition.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddWorker.aspx.cs">
       <DependentUpon>AddWorker.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -301,6 +325,18 @@
     </Compile>
     <Compile Include="AddShift.aspx.designer.cs">
       <DependentUpon>AddShift.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Categories.aspx.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Categories.aspx.designer.cs">
+      <DependentUpon>Categories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Positions.aspx.cs">
+      <DependentUpon>Positions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Positions.aspx.designer.cs">
+      <DependentUpon>Positions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Workers.aspx.cs">
       <DependentUpon>Workers.aspx</DependentUpon>

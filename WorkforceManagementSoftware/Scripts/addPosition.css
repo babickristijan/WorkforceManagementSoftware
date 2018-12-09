@@ -1,0 +1,14 @@
+﻿body {
+}
+.shiftForm {
+    position: relative;
+    margin: auto;
+    top: 100px;
+    display: block;
+    width: 700px;
+    height: 600px;
+}
+
+.shiftName, .shiftColor, .shiftValue {
+    margin: auto;
+}

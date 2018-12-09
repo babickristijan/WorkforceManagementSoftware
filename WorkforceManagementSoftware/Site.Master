@@ -61,9 +61,10 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" style="width:80%;">
                         <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/Workers">Workers</a></li>
+                        <li><a runat="server" href="~/Categories">Categories</a></li>
+                        <li><a runat="server" href="~/Positions">Positions</a></li>
                         <li><a runat="server" href="~/Shifts">Shifts</a></li>
-                        
+                        <li><a runat="server" href="~/Workers">Workers</a></li>
                         <li style="float:right;margin-top:7px;"><button type="button" class="btn btn-primary" >
                     <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" />
                     </button></li>
@@ -82,7 +83,7 @@
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" Visible="true">
-                
+
             </asp:ContentPlaceHolder>
    
 
@@ -94,6 +95,15 @@
     <script src="Scripts/fullcalendar.min.js"></script>
     <script src="Scripts/locale/hr.js"></script>
     <script src="Scripts/scheduler.min.js"></script>
+    <script>
+    $('form').on('keyup keypress', function (e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    </script>
     <div>
        
     </div>

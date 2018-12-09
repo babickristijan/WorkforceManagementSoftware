@@ -475,6 +475,46 @@ namespace WorkforceManagementSoftware
 
         }
 
+        [WebMethod]
+        public JsonResult GetDataForPosition()
+        {
+
+            string id = "";
+            string position_id = "";
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString + "MultipleActiveResultSets=true";
+            using (SqlConnection connection = new SqlConnection(connStr))
+            using (SqlCommand command = new SqlCommand("SELECT TOP (1000) [id],[naziv_pozicije] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Positions]", connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+
+                        id = reader["id"].ToString();
+                        position_id = reader["naziv_pozicije"].ToString();
+
+
+                    }
+
+                }
+                connection.Close();
+
+            }
+
+
+            string[] array = new string[] { id, position_id};
+
+
+
+            return new JsonResult { Data = array, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+
+        }
+
         [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
         public string UpdateWorker(string id, string firstname, string lastname, string vacationDayLeft, string workerCategory, string workerPosition, string email)
         {
@@ -493,6 +533,106 @@ namespace WorkforceManagementSoftware
             cmd.Parameters.AddWithValue("@parent_id", workerCategory);
             cmd.Parameters.AddWithValue("@vacation_left", vacationDayLeft);
             cmd.ExecuteNonQuery();
+
+
+
+
+
+
+            con.Close();
+
+            return "";
+        }
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string UpdatePosition(string id, string naziv_pozicije)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "UPDATE Positions SET [naziv_pozicije] =  @naziv WHERE[id] = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@naziv", naziv_pozicije);
+            cmd.ExecuteNonQuery();
+
+
+
+
+
+
+            con.Close();
+
+            return "";
+        }
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string UpdateCategorie(string id, string naziv_kategorije)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "UPDATE ResourcesParent SET [title] =  @naziv WHERE[id] = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@naziv", naziv_kategorije);
+            cmd.ExecuteNonQuery();
+
+
+
+
+
+
+            con.Close();
+
+            return "";
+        }
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string DeletePosition(string id)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+
+            cmd.CommandText = "DELETE FROM Positions WHERE [id] = @pozicija_id";
+            cmd.Parameters.AddWithValue("@pozicija_id", id);
+            cmd.ExecuteNonQuery();
+
+
+
+
+
+
+
+
+            con.Close();
+
+            return "";
+        }
+
+        [WebMethod, ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
+        public string DeleteCategorie(string id)
+        {
+
+            string connStr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            SqlConnection con = new SqlConnection(connStr);
+
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+
+            cmd.CommandText = "DELETE FROM ResourcesParent WHERE [id] = @category_id";
+            cmd.Parameters.AddWithValue("@category_id", id);
+            cmd.ExecuteNonQuery();
+
+
 
 
 

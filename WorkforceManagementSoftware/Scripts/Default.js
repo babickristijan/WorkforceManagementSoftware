@@ -61,12 +61,14 @@ $(function () { // document ready
                         var tempChildren = [];
                         for (var j = 0; j < resources.length; j++) {
                             if (resources[j].parentid == parents[i].id) {
-                                var tempObjectChildren = { id: resources[j].id, title: resources[j].firstname + " " + resources[j].lastname + " (" +  resources[j].title + ")"  };
+                                var tempObjectChildren = { id: resources[j].id, title: resources[j].firstname + " " + resources[j].lastname + " (" + resources[j].title + ")", groupId: parents[i].title };
                                 tempChildren.push(tempObjectChildren);
+                                finalResource.push(tempObjectChildren);
                             }
                         }
-                        tempObject.children = tempChildren;
-                        finalResource.push(tempObject);
+                        console.log("tempChildren",tempChildren);
+                        //tempObject.children = tempChildren;
+                        //finalResource.push(tempObject);
                     }
                     
                     console.log(data.d.Data[0][0]);
@@ -85,7 +87,8 @@ $(function () { // document ready
                             color: v.color,
                             godisnji: v.godisnji,
                             durationEditable: resizeableOption,
-                            allDay:true
+                            allDay: true
+
                         });
                         
                        
@@ -98,7 +101,7 @@ $(function () { // document ready
                     GenerateCalendar(events, finalResource);
                     addfuckingevents();
                 }, error: function (error) {
-                    alert('failed');
+                    console.log('failed');
                 }
             })
 
@@ -108,11 +111,12 @@ $(function () { // document ready
                    
                     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                     eventDurationEditable: true,
-                    
+                    resourceGroupField: "groupId",
                     allDay: true,
                     aspectRatio: 1.8,
                     scrollTime: '00:00',
-                    displayEventTime: false,
+                   displayEventTime: false,
+                   
                     //eventDrop: function (event, delta, revertFunc) {
 
                     //    updateAjaxEvent(event, revertFunc);
@@ -141,9 +145,9 @@ $(function () { // document ready
                             $("#smjeneModal").show();
                             $("#izmjeniModal").show();
                         }
-                        //alert('Event: ' + calEvent.title);
-                        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                        //alert('View: ' + view.name);
+                        //console.log('Event: ' + calEvent.title);
+                        //console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                        //console.log('View: ' + view.name);
 
                         // change the border color just for fun
                         $(this).css('border-color', 'red');
@@ -152,7 +156,7 @@ $(function () { // document ready
                     },
                     eventOverlap: false,
                     dayClick: function (date, jsEvent, view, resourceObj) {
-                      //  alert(date.format());
+                      //  console.log(date.format());
                         //   $("#modal-view").show();
                         
                         let clickDate = new Date(date.format());
@@ -175,7 +179,7 @@ $(function () { // document ready
                     locale: 'hr',
                     slotLabelFormat: [
                         'MMMM YYYY', // top level of text
-                        'dddd'        // lower level of text
+                        'ddd D '        // lower level of text
                     ],
                     resources: finalResource,
                    events: events,
@@ -199,7 +203,7 @@ $(function () { // document ready
                             dataType: "json",
                             success: function (data) {
                             }, error: function (error) {
-                                alert('failed');
+                                console.log('failed');
                             },
                         })
 
@@ -247,7 +251,7 @@ function updateAjaxEvent(event, revertFunc) {
         success: function (data) {
            
         }, error: function (error) {
-            alert('failed');
+            console.log('failed');
         },
     })
     
@@ -289,7 +293,7 @@ function updateShift(idSmjene, idEventa, title, modal) {
                 
             },
             error: function (error) {
-                alert('failed');
+                console.log('failed');
             },
         })
     }
@@ -311,7 +315,7 @@ function deleteEvent(idEventa, modal) {
                 modal.style.display = "none";
             },
             error: function (error) {
-                alert('failed');
+                console.log('failed');
             },
         })
     }
@@ -384,10 +388,11 @@ function insertAjaxEvent() {
                     godisnji: current_godisnji,
                     durationEditable: resizeableOption,
                     allDay: true
+
                 };
                 $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
             }, error: function (error) {
-                alert('failed');
+                console.log('failed');
             },
         })
     }
