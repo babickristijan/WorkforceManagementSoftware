@@ -1,0 +1,100 @@
+﻿body {
+    margin-top: 40px;
+    text-align: center;
+}
+
+#wrap {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+#shift-wrapper {
+    float: left;
+    width: 15%;
+    max-width: 150px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    text-align: left;
+}
+
+    #shift-wrapper h4 {
+        font-size: 16px;
+        margin-top: 0;
+        padding-top: 1em;
+    }
+
+    #shift-wrapper .shifts {
+        margin: 10px 0;
+        cursor: pointer;
+    }
+
+    #shift-wrapper p {
+        margin: 1.5em 0;
+        font-size: 11px;
+        color: #666;
+    }
+
+        #shift-wrapper p input {
+            margin: 0;
+            vertical-align: middle;
+        }
+
+#calendar {
+    float: right;
+    width: 80%;
+}
+
+.wrap-padding {
+    padding-top: 80px;
+}
+
+.selected-shift {
+    outline: 5px solid red;
+}
+
+.modal-event {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 600px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.fc-bgevent {
+    font-size: 10px;
+    text-align: center;
+    overflow: hidden;
+    font-weight: 700;
+    opacity: 0.5;
+    text-transform: uppercase;
+    padding-top: 10px;
+}

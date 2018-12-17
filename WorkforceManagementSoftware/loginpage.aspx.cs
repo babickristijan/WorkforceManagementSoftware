@@ -47,10 +47,34 @@ namespace WorkforceManagementSoftware
             int userId = 0;
             var passwordIzBaze = "";
             var hashiraniPassword = "";
+            bool isAdmin = false;
             string constr = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+           
                 using (SqlConnection con = new SqlConnection(constr))
                 {
-                    using (SqlCommand cmd = new SqlCommand("Validate_User"))
+                con.Open();
+
+
+
+                SqlCommand cmd1 = con.CreateCommand();
+                cmd1.CommandText = "SELECT TOP (1000) [UserId],[Username],[Password],[Email],[CreatedDate],[LastLoginDate],[IsAdmin] FROM[unipuhrhost25com_workforcemanagementsoftware].[dbo].[Users] where Username = @Username";
+                cmd1.Parameters.AddWithValue("@Username", Login1.UserName);
+
+
+                using (SqlDataReader reader1 = cmd1.ExecuteReader())
+                {
+
+                    while (reader1.Read())
+                    {
+
+                        isAdmin = Convert.ToBoolean(reader1["IsAdmin"]);
+
+                    }
+
+                }
+                con.Close();
+
+                using (SqlCommand cmd = new SqlCommand("Validate_User"))
                     {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Username", Login1.UserName);
@@ -72,8 +96,15 @@ namespace WorkforceManagementSoftware
                             Login1.FailureText = "Account has not been activated.";
                             break;
                         default:
-                            FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet);
-                            break;
+                        FormsAuthentication.SetAuthCookie(Login1.UserName, Login1.RememberMeSet);
+                        if (isAdmin == true) { 
+                            
+                            Response.Redirect("Default.aspx");
+                        } else
+                        {
+                            Response.Redirect("User.aspx");
+                        }
+                        break;
                     }
                 }
             }

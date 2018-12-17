@@ -150,9 +150,12 @@
     <Content Include="Scripts\Shifts.css" />
     <Content Include="Scripts\spectrum.css" />
     <Content Include="Scripts\spectrum.js" />
+    <Content Include="Scripts\User.css" />
+    <Content Include="Scripts\User.js" />
     <Content Include="Scripts\Workers.css" />
     <Content Include="Scripts\Workers.js" />
     <Content Include="AddShift.aspx" />
+    <Content Include="User.aspx" />
     <Content Include="Workers.aspx">
       <BrowseToURL>Workers</BrowseToURL>
     </Content>
@@ -337,6 +340,13 @@
     </Compile>
     <Compile Include="Positions.aspx.designer.cs">
       <DependentUpon>Positions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User.aspx.cs">
+      <DependentUpon>User.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User.aspx.designer.cs">
+      <DependentUpon>User.aspx</DependentUpon>
     </Compile>
     <Compile Include="Workers.aspx.cs">
       <DependentUpon>Workers.aspx</DependentUpon>

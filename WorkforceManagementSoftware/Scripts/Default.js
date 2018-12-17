@@ -145,9 +145,6 @@ $(function () { // document ready
                             $("#smjeneModal").show();
                             $("#izmjeniModal").show();
                         }
-                        //console.log('Event: ' + calEvent.title);
-                        //console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                        //console.log('View: ' + view.name);
 
                         // change the border color just for fun
                         $(this).css('border-color', 'red');
