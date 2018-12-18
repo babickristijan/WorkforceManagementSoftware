@@ -1,21 +1,31 @@
 ﻿var newEvents = [];
 var resourcesGlobal = [];
 var holidaysGlobal = [];
+var holidaysGlobalPrev = [];
+var holidaysGlobalNext = [];
 
 
 $(function () { // document ready
     
     
-        var dt = new Date();
+    var dt = new Date();
+    
         var currentYear = dt.getFullYear();
-        var holidays;
+        var prevYear = currentYear - 1;
+        var nextYear = currentYear + 1;
+        var holidays,prevholidays,nextholidays;
         $.ajaxSetup({
             async: false
         });
-
-        $.getJSON("https://www.calendarindex.com/api/v1/holidays?country=HR&year="+currentYear+"&api_key=1d1410cac562f8bc93f6c1635eb81035a28c946c&fbclid=IwAR0IqOhrobhiGv1cW5eRAIkZaAwnMOy4M-tTMuWQdD0HVbwJxHWFb0YzrTE", function (result) {
-                holidays = result.response.holidays;
+        $.getJSON("https://www.calendarindex.com/api/v1/holidays?country=HR&year=" + prevYear + "&api_key=1d1410cac562f8bc93f6c1635eb81035a28c946c&fbclid=IwAR0IqOhrobhiGv1cW5eRAIkZaAwnMOy4M-tTMuWQdD0HVbwJxHWFb0YzrTE", function (result) {
+            prevholidays = result.response.holidays;
         });
+        $.getJSON("https://www.calendarindex.com/api/v1/holidays?country=HR&year="+currentYear+"&api_key=1d1410cac562f8bc93f6c1635eb81035a28c946c&fbclid=IwAR0IqOhrobhiGv1cW5eRAIkZaAwnMOy4M-tTMuWQdD0HVbwJxHWFb0YzrTE", function (result) {
+            holidays = result.response.holidays;
+         });
+         $.getJSON("https://www.calendarindex.com/api/v1/holidays?country=HR&year=" + nextYear + "&api_key=1d1410cac562f8bc93f6c1635eb81035a28c946c&fbclid=IwAR0IqOhrobhiGv1cW5eRAIkZaAwnMOy4M-tTMuWQdD0HVbwJxHWFb0YzrTE", function (result) {
+             nextholidays = result.response.holidays;
+         });
         $.ajaxSetup({
             async: true
         });
@@ -95,7 +105,9 @@ $(function () { // document ready
 
                     });
                     resourcesGlobal = resources;
+                    holidaysGlobalPrev = prevholidays;
                     holidaysGlobal = holidays;
+                    holidaysGlobalNext = nextholidays;
                     
                    
                     GenerateCalendar(events, finalResource);
@@ -172,7 +184,7 @@ $(function () { // document ready
                         right: 'timelineMonth'
                     },
                     defaultView: 'timelineMonth',
-                    resourceLabelText: 'Workers',
+                    resourceLabelText: 'Radnici',
                     locale: 'hr',
                     slotLabelFormat: [
                         'MMMM YYYY', // top level of text
@@ -409,6 +421,28 @@ function addfuckingevents() {
     for (let i = 0; i < resourcesGlobal.length; i++) {
 
         let currentResourceId = resourcesGlobal[i].id;
+
+        for (let j = 0; j < holidaysGlobalPrev.length; j++) {
+            let currentHoliday = holidaysGlobalPrev[j];
+
+            let split1 = currentHoliday.date.split(" ")[0];
+            let split2 = split1.split("-");
+
+            let date = split2[1] + " " + split2[2] + " " + split2[0];
+
+            newEvents.push({
+                id: "holiday2" + i + j,
+                resourceId: currentResourceId,
+                start: date,
+                end: date,
+                title: currentHoliday.name,
+                rendering: 'background',
+                color: 'rgba(255,0,0,0.3)',
+                allDay: true
+
+            });
+
+        }
         for (let j = 0; j < holidaysGlobal.length; j++) {
             let currentHoliday = holidaysGlobal[j];
 
@@ -428,11 +462,27 @@ function addfuckingevents() {
                 allDay: true
 
             });
-           
-
-
         }
+        for (let j = 0; j < holidaysGlobalNext.length; j++) {
+            let currentHoliday = holidaysGlobalNext[j];
 
+            let split1 = currentHoliday.date.split(" ")[0];
+            let split2 = split1.split("-");
+
+            let date = split2[1] + " " + split2[2] + " " + split2[0];
+
+            newEvents.push({
+                id: "holiday2" + i + j,
+                resourceId: currentResourceId,
+                start: date,
+                end: date,
+                title: currentHoliday.name,
+                rendering: 'background',
+                color: 'rgba(255,0,0,0.3)',
+                allDay: true
+
+            });
+        }
     }
     $('#calendar').fullCalendar('renderEvents', newEvents, 'stick');
 }

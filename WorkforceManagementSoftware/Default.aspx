@@ -10,7 +10,7 @@
 
     <div class="wrap-padding" id='wrap'>
         <div id="shift-wrapper">
-            <h4>Shifts</h4>
+            <h4>Smjene</h4>
             <asp:Repeater ID="Repeater1" runat="server" DataSourceID="getShifts">
                 <ItemTemplate>
                     <div class='shifts color-<%# Eval("color") %>' id='<%# Eval("id") %>'><%# Eval("naziv") %></div>

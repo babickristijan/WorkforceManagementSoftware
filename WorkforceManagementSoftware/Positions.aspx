@@ -6,14 +6,14 @@
     <h2><%:Title%></h2>
     <div class="wrap-padding" id='wrap'>
         <div id="employee-wrapper">
-            <asp:Button ID="addNewPosition" type="button" runat="server" Text="Add a new Position" CssClass="btn btn-primary" PostBackUrl="~/AddPosition.aspx" />
+            <asp:Button ID="addNewPosition" type="button" runat="server" Text="Dodaj poziciju" CssClass="btn btn-primary" PostBackUrl="~/AddPosition.aspx" />
 
         </div>
         <table border="1" style="margin: 2px;" id="TablePositions">
             <tr class="tableHeader">
-                <td>Position name</td>
-                <td>Edit</td>
-                <td>Delete</td>
+                <td>Naziv pozicije</td>
+                <td>Izmjeni</td>
+                <td>Obriši</td>
             </tr>
 
 
@@ -48,7 +48,7 @@
                 <span class="close">&times;</span>
             <form>
                   
-                <label>Position name:</label>
+                <label>Naziv pozicije:</label>
                 <input type="hidden" id="position_id" name="position_id"  />
                 <input type="text" id="naziv_pozicije" name="naziv_pozicije"  />
                  <button type="button" id="updatePosition">Izmjeni</button>

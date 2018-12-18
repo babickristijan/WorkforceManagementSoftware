@@ -60,11 +60,11 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" style="width:80%;">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/Categories">Categories</a></li>
-                        <li><a runat="server" href="~/Positions">Positions</a></li>
-                        <li><a runat="server" href="~/Shifts">Shifts</a></li>
-                        <li><a runat="server" href="~/Workers">Workers</a></li>
+                        <li><a runat="server" href="~/">Raspored</a></li>
+                        <li><a runat="server" href="~/Workers">Radnici</a></li>
+                        <li><a runat="server" href="~/Shifts">Smjene</a></li>
+                        <li><a runat="server" href="~/Categories">Kategorije</a></li>
+                        <li><a runat="server" href="~/Positions">Pozicije</a></li>
                         <li style="float:right;margin-top:7px;"><button type="button" class="btn btn-primary" >
                     <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" />
                     </button></li>

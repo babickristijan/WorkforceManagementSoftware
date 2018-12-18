@@ -10,12 +10,12 @@
     <table>
         <tr>
             <td align="center" colspan="2">
-                <h1>New worker</h1>
+                <h1>Dodavanje radnika</h1>
             </td>
         </tr>
         <tr>
             <td align="left">
-        First name: 
+        Ime: 
              </td>
             <td>
                 <asp:TextBox id="firstname" runat="server" CssClass="textBox"></asp:TextBox>
@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <td align="left">
-        Last name:
+        Prezime:
             </td>
             <td>
                 <asp:TextBox id="lastname" runat="server" CssClass="textBox"></asp:TextBox>
@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <td align="left">
-        Email:
+        E-pošta:
             </td>
             <td>
                 <asp:TextBox id="email" runat="server" TextMode="Email" placeholder="user@example.com" CssClass="textBox"></asp:TextBox>
@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <td align="left">
-                Workers grup:
+                Kategorija:
             </td>
             <td>
         <asp:DropDownList runat="server" ID="parentID" DataTextField="title" DataValueField="id" DataSourceID="getParent" CssClass="dropDown"></asp:DropDownList>
@@ -47,7 +47,7 @@
         </tr>
         <tr>
             <td align="left">
-        Agent position:
+        Pozicija:
              </td>
             <td>
                 <asp:DropDownList runat="server" ID="positionID" DataTextField="naziv_pozicije" DataValueField="id" DataSourceID="getPositions" CssClass="dropDown"></asp:DropDownList>
@@ -55,7 +55,7 @@
         </tr>
         <tr>
             <td align="left">
-        Number of vacation days:
+        Preostalo godišnjeg:
              </td>
             <td>
                 <asp:TextBox id="vacationdayleft" runat="server" type="number" placeholder="0" CssClass="textBox"></asp:TextBox>
@@ -64,7 +64,7 @@
         <tr>
 
             <td align="center" colspan="2">
-                <asp:Button id="submitButton" runat="server"  OnClick="SubmitForm" Text="Submit" CssClass="submitBtn" />
+                <asp:Button id="submitButton" runat="server"  OnClick="SubmitForm" Text="Spremi" CssClass="submitBtn" />
              </td>
         </tr>
    </table>

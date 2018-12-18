@@ -6,14 +6,14 @@
     <h2><%:Title%></h2>
     <div class="wrap-padding" id='wrap'>
         <div id="employee-wrapper">
-            <asp:Button ID="addANewWorker" runat="server" Text="Add a New Worker" CssClass="btn btn-primary" PostBackUrl="~/AddCategories.aspx" />
+            <asp:Button ID="addANewWorker" runat="server" Text="Dodaj kategoriju" CssClass="btn btn-primary" PostBackUrl="~/AddCategories.aspx" />
 
         </div>
         <table border="1" style="margin: 2px;" id="TableWorkers">
             <tr class="tableHeader">
-                <td>Parent Category</td>
-                <td>Edit</td>
-                <td>Delete</td>
+                <td>Naziv</td>
+                <td>Izmjeni</td>
+                <td>Obriši</td>
             </tr>
 
 
@@ -48,7 +48,7 @@
                 <span class="close">&times;</span>
             <form>
                 <input type="hidden" id="categorie_id" name="categorie_id"  />
-              <label>Category name:</label><input type="text" id="categorie_name" name="categorie_name"  /><br />
+              <label>Naziv:</label><input type="text" id="categorie_name" name="categorie_name"  /><br />
             </form>
             </div>
             <button type="button" id="updateCategorie">Izmjeni</button>

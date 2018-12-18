@@ -9,17 +9,17 @@
 
     <div class="wrap-padding" id='wrap'>
         <div id="shift-wrapper">
-            <asp:Button ID="addANewShift" runat="server" Text="Add a New Shift" CssClass="btn btn-primary" PostBackUrl="~/AddShift.aspx" />
+            <asp:Button ID="addANewShift" runat="server" Text="Dodaj smjenu" CssClass="btn btn-primary" PostBackUrl="~/AddShift.aspx" />
         </div>
         <table border="1" style="margin: 2px;" id="Shifts">
             <tr class="tableHeader">
                 <td style="display:none"">id</td>
-                <td>Name</td>
-                <td>Color</td>
-                <td>Shift value</td>
-                <td>Godisnji odmor</td>
-                <td>Edit</td>
-                <td>Delete</td>
+                <td>Ime smjene</td>
+                <td>Boja</td>
+                <td>Vrijednost smjene(u satima)</td>
+                <td>Godišnji odmor</td>
+                <td>Izmjeni</td>
+                <td>Obriši</td>
             </tr>
 
 
@@ -54,12 +54,12 @@
             <span class="close">&times;</span>
             <form>
                
-               name:  <input type="text" id="shift_name" name="shift_name"  />
-               color: <input type="text" id="shift_color" name="shift_color"  />
+               Ime smjene:  <input type="text" id="shift_name" name="shift_name"  />
+               Boja: <input type="text" id="shift_color" name="shift_color"  />
                 <input type='text' class="basic"/>
-               Shift value(in hours): <input type="number"  id="shift_value" name="shift_value"  />
+               Vrijednost smjene(u satima): <input type="number"  id="shift_value" name="shift_value"  />
                  <input type="hidden" id="shift_id" name="shift_id"  />
-              is godisnji? : <input type="checkbox"  id="shift_is_godisnji" name="shift_is_godisnji"  />
+             Godišnji? : <input type="checkbox"  id="shift_is_godisnji" name="shift_is_godisnji"  />
             </form>
 
             <button type="button" id="updateShift">Izmjeni</button>

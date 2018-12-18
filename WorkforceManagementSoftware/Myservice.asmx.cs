@@ -103,8 +103,8 @@ namespace WorkforceManagementSoftware
                 EventSeba EventSeba = new EventSeba();
                 EventSeba.ID = reader["ID"].ToString();
                 EventSeba.ResourceId = reader["ResourceId"].ToString();
-                EventSeba.Start = Convert.ToDateTime(reader["Start"]).ToString("MM/dd/yyyy");
-                 EventSeba.End = Convert.ToDateTime(reader["End"]).ToString("MM/dd/yyyy");
+                EventSeba.Start = Convert.ToDateTime(reader["Start"]).ToString("yyyy-MM-dd");
+                 EventSeba.End = Convert.ToDateTime(reader["End"]).ToString("yyyy-MM-dd");
                  
                  id_smjene = reader["id_smjene"].ToString();
                  events.Add(EventSeba);

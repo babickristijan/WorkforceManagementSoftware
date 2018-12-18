@@ -4,23 +4,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="Scripts/Workers.css" rel="stylesheet">
     <script src="Scripts/Workers.js"></script>
-    <h2><%:Title%></h2>
+    <h2>Radnici</h2>
     <div class="wrap-padding" id='wrap'>
         <div id="employee-wrapper">
-            <asp:Button ID="addANewWorker" runat="server" Text="Add a New Worker" CssClass="btn btn-primary" PostBackUrl="~/AddWorker.aspx" />
+            <asp:Button ID="addANewWorker" runat="server" Text="Dodaj radnika" CssClass="btn btn-primary" PostBackUrl="~/AddWorker.aspx" />
 
         </div>
         <table border="1" style="margin: 2px;" id="TableWorkers">
             <tr class="tableHeader">
-                <td>First Name</td>
-                <td>Last Name</td>
-                <td>Vacation Left</td>
-                <td>Hours</td>
-                <td>Parent Category</td>
-                <td>Agent Title</td>
-                <td>Email</td>
-                <td>Edit</td>
-                <td>Delete</td>
+                <td>Ime</td>
+                <td>Prezime</td>
+                <td>Preostalo godišnjeg</td>
+                <td>Odrađeni sati</td>
+                <td>Kategorija</td>
+                <td>Pozicija</td>
+                <td>E-pošta</td>
+                <td>Izmjeni</td>
+                <td>Obriši</td>
             </tr>
 
 
@@ -60,10 +60,10 @@
             <div class="formBlock">
                 <span class="close">&times;</span>
             <form>
-              <label>First Name:</label><input type="text" id="firstname" name="firstname"  /><br />
-              <label>Last Name:</label><input type="text" id="lastname" name="lastname"  /><br />
-              <label>Vacation days left:</label><input type="number"  id="vacationDayLeft" name="vacationDayLeft"  /><br />
-              <label>Parent Category:</label><select id="workerCategory" name="workerCategory">
+              <label>Ime:</label><input type="text" id="firstname" name="firstname"  /><br />
+              <label>Prezime:</label><input type="text" id="lastname" name="lastname"  /><br />
+              <label>Preostalo godišnjeg:</label><input type="number"  id="vacationDayLeft" name="vacationDayLeft"  /><br />
+              <label>Kategorija:</label><select id="workerCategory" name="workerCategory">
                     <asp:Repeater ID="editWorker" runat="server" DataSourceID="getWorkerCategory">
                         <ItemTemplate>
                             <option  value='<%# Eval("id") %>'><%# Eval("title") %></option>
@@ -72,7 +72,7 @@
                   <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
                     ID="getWorkerCategory" runat="server" SelectCommand="SELECT TOP (1000) [id],[title] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[ResourcesParent]"></asp:SqlDataSource>
                 </select><br />
-                <label>Worker Position:</label>
+                <label>Pozicija:</label>
                 <select id="workerPosition" name="workerPosition">
                     <asp:Repeater ID="editPosition" runat="server" DataSourceID="getPositions">
                         <ItemTemplate>
@@ -82,7 +82,7 @@
                   <asp:SqlDataSource ConnectionString="<%$ ConnectionStrings:myConnectionString %>"
                 ID="getPositions" runat="server" SelectCommand="SELECT TOP (1000) [id],[naziv_pozicije] FROM [unipuhrhost25com_workforcemanagementsoftware].[dbo].[Positions]"></asp:SqlDataSource>
                 </select> <br />
-              <label>Email:</label><input type="email" id="email" name="email"  /><br />
+              <label>E-pošta:</label><input type="email" id="email" name="email"  /><br />
                  <input type="hidden" id="worker_id" name="worker_id"  />
             </form>
             </div>
