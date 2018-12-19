@@ -3,14 +3,19 @@
     text-align: center;
 }
 
+.body-content {
+    width: 2100px;
+}
+
+
 #wrap {
-    width: 1100px;
+    width: 2000px;
     margin: 0 auto;
 }
 
 #shift-wrapper {
     float: left;
-    width:15%;
+    width: 15%;
     max-width: 150px;
     padding: 0 10px;
     border: 1px solid #ccc;
@@ -41,16 +46,18 @@
         }
 
 #calendar {
-   float: right;
-   width: 80%;
-}   
+    float: left;
+    width: 80%;
+    padding-left: 30px;
+}
 
 .wrap-padding {
-   padding-top: 80px;
+    padding-top: 80px;
 }
 
 .selected-shift {
-   outline: 5px solid red;
+    background-color: #555555;
+    color: white;
 }
 
 .modal-event {
@@ -90,11 +97,11 @@
     }
 
 .fc-bgevent {
-    font-size:10px;
-    text-align:center;
-    overflow:hidden;
-    font-weight:700;
-    opacity:0.5;
-    text-transform:uppercase;
-    padding-top:10px;
+    font-size: 10px;
+    text-align: center;
+    overflow: hidden;
+    font-weight: 700;
+    opacity: 0.5;
+    text-transform: uppercase;
+    padding-top: 10px;
 }
