@@ -1,9 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Categories.aspx.cs" Inherits="WorkforceManagementSoftware.Categories" %>
+﻿<%@ Page Title="Kategorije" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Categories.aspx.cs" Inherits="WorkforceManagementSoftware.Categories" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="Scripts/Categories.css" rel="stylesheet">
     <script src="Scripts/Categories.js"></script>
-    <h2><%:Title%></h2>
+        <h2><%:Title%></h2>
     <div class="wrap-padding" id='wrap'>
         <div id="employee-wrapper">
             <asp:Button ID="addANewWorker" runat="server" Text="Dodaj kategoriju" CssClass="btn btn-primary" PostBackUrl="~/AddCategories.aspx" />
