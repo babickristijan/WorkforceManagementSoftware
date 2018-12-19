@@ -20,6 +20,13 @@
     <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
 </head>
 <body>
+    <div class="loader">
+
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</div>
     <form runat="server">
                 <asp:ScriptManager runat="server">
             <Scripts>

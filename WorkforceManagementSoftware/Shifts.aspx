@@ -1,13 +1,15 @@
 ﻿<%@ Page Title="Smjene" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Shifts.aspx.cs" Inherits="WorkforceManagementSoftware.Shifts" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <!--#include file="~/loader.html" -->
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="Scripts/Shifts.css" rel="stylesheet">
     <link href="Scripts/spectrum.css" rel="stylesheet">
     <script src="Scripts/Shifts.js"></script>
     <script src="Scripts/spectrum.js"></script>
-            <h2><%:Title%></h2>
+            
     <div class="wrap-padding" id='wrap'>
+        <h2><%:Title%></h2>
         <div id="shift-wrapper">
             <asp:Button ID="addANewShift" runat="server" Text="Dodaj smjenu" CssClass="btn btn-primary" PostBackUrl="~/AddShift.aspx" />
         </div>

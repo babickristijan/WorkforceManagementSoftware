@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddShift.aspx.cs" Inherits="WorkforceManagementSoftware.AddShift" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <!--#include file="~/loader.html" -->
 
     <link href="Scripts/spectrum.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Scripts/addShift.css">

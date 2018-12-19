@@ -76,12 +76,10 @@ $(function () { // document ready
                                 finalResource.push(tempObjectChildren);
                             }
                         }
-                        console.log("tempChildren",tempChildren);
                         //tempObject.children = tempChildren;
                         //finalResource.push(tempObject);
                     }
                     
-                    console.log(data.d.Data[0][0]);
                     $.each(data.d.Data[0][0], function (i, v) {
 
                         let resizeableOption = true;
@@ -125,9 +123,13 @@ $(function () { // document ready
                     eventDurationEditable: true,
                     resourceGroupField: "groupId",
                     allDay: true,
+                    resourceAreaWidth:'250px',
                     aspectRatio: 1.8,
+                   eventAfterAllRender: function (view) {
+                       $(".loader").hide();
+                   },
                     scrollTime: '00:00',
-                   displayEventTime: false,
+                    displayEventTime: false,
                    
                     //eventDrop: function (event, delta, revertFunc) {
 
@@ -143,7 +145,6 @@ $(function () { // document ready
                     eventClick: function (calEvent, jsEvent, view) {
 
                         //ovdje treba napraviti modal za update eventa i dellete
-                        console.log("joe", calEvent);
                         modal.style.display = "block";
                         globalEventId = calEvent.id;
                         $("#godisnji_modal").val(calEvent.godisnji);
@@ -337,11 +338,9 @@ $(document).ready(function () {
 
         current_id_shift = $(this).attr("id");
         let godisnji = "is_godisnji" + current_id_shift;
-        console.log("godisnji", godisnji);
         let godisnji_value = $("#" + godisnji).html();
         current_godisnji = godisnji_value;
-        console.log("dfsdfs", godisnji_value);
-        $(".selected-shift").css("outline","unset");
+        $(".selected-shift").css("background-color","unset");
         $(".shifts").removeClass("selected-shift");
        
         $(this).addClass("selected-shift");
@@ -355,7 +354,7 @@ $(document).ready(function () {
                
             
         });
-        $(this).css("outline", "5px solid   " + current_color);
+        $(this).css("background-color", current_color);
         
         
     });

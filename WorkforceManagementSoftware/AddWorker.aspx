@@ -2,6 +2,7 @@
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <!--#include file="~/loader.html" -->
    
 
  <link rel="stylesheet" type="text/css" href="Scripts/addWorker.css">

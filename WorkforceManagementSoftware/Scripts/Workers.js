@@ -17,7 +17,6 @@
     $('.openUpdateWorker').on('click', function () {
         let id = $(this).attr('id');
         id = id.split("update")[1];
-        console.log(id);
    
         let data = JSON.stringify({ "id_worker": id });
         $.ajax({
@@ -27,7 +26,6 @@
             data: data,
             dataType: "json",
             success: function (data) {
-                console.log(data.d.Data);
                 let workerInfo = data.d.Data;
                 let id = workerInfo[0];
                 let position_id = workerInfo[1];
@@ -53,7 +51,6 @@
 
     $('#updateWorker').on('click', function () {
         let id = $('#worker_id').val();
-        console.log(id);
         let firstname = $('#firstname').val();
         
         let lastname =$('#lastname').val();
@@ -74,7 +71,6 @@
             data: data,
             dataType: "json",
             success: function (data) { 
-                console.log(data);
                 $('#FirstName' + id).html(firstname);
                 $('#LastName' + id).html(lastname);
                 $('#VacationDayLeft' + id).html(vacationDayLeft);
@@ -90,7 +86,6 @@
     $('.deleteWorker').on('click', function () {
         let id = $(this).attr('id');
         id = id.split("delete")[1];
-        console.log(id);
         if (confirm("Are you sure you want to delete this worker?")) {
            
             let data = JSON.stringify({ "id": id });
@@ -101,7 +96,6 @@
                 data: data,
                 dataType: "json",
                 success: function (data) {
-                    console.log("data", data);
                     $('#row' + id).remove();
                 }, error: function (error) {
                     alert('failed');

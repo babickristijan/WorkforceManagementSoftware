@@ -1,0 +1,95 @@
+﻿<script>
+    window.addEventListener('load', function () {
+        let loader = document.getElementsByClassName("loader")[0];
+        loader.style.display = "none";
+        
+     });
+    
+</script>
+<style>
+    body {
+        margin: 0;
+    }
+
+    .loader {
+        -moz-transition: all .5s ease;
+        -webkit-transition: all .5s ease;
+        background: #eee;
+        height: 100%;
+        opacity: 1;
+        position: fixed;
+        text-align: center;
+        transition: all .5s ease;
+        width: 100%;
+        z-index: 9999;
+    }
+
+    .spinner {
+        height: 40px;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        position: relative;
+        top: 50%;
+        width: 40px;
+    }
+
+    .double-bounce1, .double-bounce2 {
+        -webkit-animation: bounce 2s infinite ease-in-out;
+        animation: bounce 2s infinite ease-in-out;
+        background-color: #ff0a73;
+        border-radius: 50%;
+        height: 100%;
+        left: 0;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    .double-bounce2 {
+        animation-delay: -1s;
+        -webkit-animation-delay: -1s;
+        background-color: aqua;
+    }
+
+    .body-content, .container {
+        width:100%;
+    }
+
+    #wrap {
+        width:80%;
+        margin: 0 auto;
+    }
+
+
+
+
+    @-webkit-keyframes bounce {
+        0%, 100% {
+            -webkit-transform: scale(0);
+        }
+
+        50% {
+            -webkit-transform: scale(1);
+        }
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: scale(0);
+            -webkit-transform: scale(0);
+        }
+
+        50% {
+            transform: scale(1);
+            -webkit-transform: scale(1);
+        }
+    }
+</style>
+<div class="loader">
+
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</div>

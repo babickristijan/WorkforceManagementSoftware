@@ -19,7 +19,6 @@
     $('.openUpdatePosition').on('click', function () {
         let id = $(this).attr('id');
         id = id.split("update")[1];
-        console.log("seba", id);
         $("#position_id").val(id);
         $('#editPositionModal').show();
     });
@@ -58,7 +57,6 @@
                 data: data,
                 dataType: "json",
                 success: function (data) {
-                    console.log("data", data);
                     $('#row' + id).remove();
                 }, error: function (error) {
                     alert('failed');

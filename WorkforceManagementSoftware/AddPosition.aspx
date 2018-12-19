@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddPosition.aspx.cs" Inherits="WorkforceManagementSoftware.AddPosition" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <!--#include file="~/loader.html" -->
     <link rel="stylesheet" type="text/css" href="Scripts/addPosition.css">
    
     <div class="positionForm">

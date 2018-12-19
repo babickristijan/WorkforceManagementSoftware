@@ -56,7 +56,6 @@
                 data: data,
                 dataType: "json",
                 success: function (data) {
-                    console.log("data", data);
                     $('#row' + id).remove();
                 }, error: function (error) {
                     alert('failed');

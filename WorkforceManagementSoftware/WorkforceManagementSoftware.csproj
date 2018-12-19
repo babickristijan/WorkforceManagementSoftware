@@ -136,6 +136,7 @@
     <Content Include="Images\dark.jpg" />
     <Content Include="Images\dhh-logo-top.png" />
     <Content Include="Images\images.jpg" />
+    <Content Include="loader.html" />
     <Content Include="Positions.aspx" />
     <Content Include="Scripts\AddCategories.css" />
     <Content Include="Scripts\addPosition.css" />

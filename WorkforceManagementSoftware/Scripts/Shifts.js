@@ -27,7 +27,6 @@
             data: data,
             dataType: "json",
             success: function (data) {
-                console.log(data.d.Data);
                 let shiftInfo = data.d.Data;
                 let id = shiftInfo[0];
                 let name = shiftInfo[1];
@@ -54,7 +53,6 @@
 
     $('#updateShift').on('click', function () {
         let id = $('#shift_id').val();
-        console.log(id);
         let name = $('#shift_name').val();
 
         let color = $('#shift_color').val();
@@ -72,7 +70,6 @@
             data: data,
             dataType: "json",
             success: function (data) {
-                console.log(data);
                 $('#shift_name' + id).html(name);
                 $('#shift_color' + id).html(color + "<div class='box-with-color' style='background-color:" + color+"' id='shift_color_represent"+id+"'></div>"      );
                 $('#shift_value' + id).html(value);
@@ -91,7 +88,6 @@
     $('.deleteShift').on('click', function () {
         let id = $(this).attr('id');
         id = id.split("delete")[1];
-        console.log(id);
         if (confirm("Are you sure you want to delete this shift?")) {
 
             let data = JSON.stringify({ "id": id });
@@ -102,7 +98,6 @@
                 data: data,
                 dataType: "json",
                 success: function (data) {
-                    console.log("data", data);
                     $('#row' + id).remove();
                 }, error: function (error) {
                     alert('failed');

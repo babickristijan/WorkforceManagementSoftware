@@ -1,10 +1,12 @@
 ﻿<%@ Page Title="Pozicije" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Positions.aspx.cs" Inherits="WorkforceManagementSoftware.Positions" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <!--#include file="~/loader.html" -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="Scripts/position.css" rel="stylesheet">
     <script src="Scripts/position.js"></script>
-    <h2><%:Title%></h2>
+    
     <div class="wrap-padding" id='wrap'>
+        <h2><%:Title%></h2>
         <div id="employee-wrapper">
             <asp:Button ID="addNewPosition" type="button" runat="server" Text="Dodaj poziciju" CssClass="btn btn-primary" PostBackUrl="~/AddPosition.aspx" />
 

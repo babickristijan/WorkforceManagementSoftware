@@ -5,7 +5,13 @@
 <script src="Scripts/Default.js"></script>
 <link href="Scripts/Default.css" rel="stylesheet">
 
+    <div class="loader">
 
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</div>
 
 
     <div class="wrap-padding" id='wrap'>

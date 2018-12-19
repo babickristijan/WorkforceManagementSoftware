@@ -1,11 +1,14 @@
 ﻿<%@ Page Title="Workers" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Workers.aspx.cs" Inherits="WorkforceManagementSoftware.Workers" %>
 
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <!--#include file="~/loader.html" -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="Scripts/Workers.css" rel="stylesheet">
     <script src="Scripts/Workers.js"></script>
-    <h2>Radnici</h2>
+    
     <div class="wrap-padding" id='wrap'>
+        <h2>Radnici</h2>
         <div id="employee-wrapper">
             <asp:Button ID="addANewWorker" runat="server" Text="Dodaj radnika" CssClass="btn btn-primary" PostBackUrl="~/AddWorker.aspx" />
 
