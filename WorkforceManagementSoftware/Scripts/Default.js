@@ -269,7 +269,7 @@ function updateAjaxEvent(event, revertFunc) {
 
 function updateShift(idSmjene, idEventa, title, modal) {
     
-    if (confirm("Are you sure?")) {
+    
         let data = JSON.stringify({
             "idSmjene": idSmjene,
             "idEventa": idEventa
@@ -306,11 +306,11 @@ function updateShift(idSmjene, idEventa, title, modal) {
                 console.log('failed');
             },
         })
-    }
+    
 }
 
 function deleteEvent(idEventa, modal) {
-    if (confirm("Are you sure?")) {
+   
         let deletegodisnji = $("#godisnji_modal").val();
         let resource_id_godisnji = $("#resource_id_godisnji").val();
         let data = JSON.stringify({ "idEventa": idEventa, "godisnji": deletegodisnji, "resource_id_godisnji": resource_id_godisnji});
@@ -328,7 +328,7 @@ function deleteEvent(idEventa, modal) {
                 console.log('failed');
             },
         })
-    }
+    
 }
 
 
@@ -365,7 +365,7 @@ $(document).ready(function () {
 
 
 function insertAjaxEvent() {
-    if (confirm("Are you sure you want to insert new shift?")) {
+    
         
         let startDate = $("#startDate").val();
         let endDate = $("#endDate").val();
@@ -403,7 +403,7 @@ function insertAjaxEvent() {
                 console.log('failed');
             },
         })
-    }
+    
     }
 
 function initShift() {

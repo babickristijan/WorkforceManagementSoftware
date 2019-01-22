@@ -47,7 +47,7 @@
     $('.deletePosition').on('click', function () {
         let id = $(this).attr('id');
         id = id.split("delete")[1];
-        if (confirm("Are you sure you want to delete this worker?")) {
+        
 
             let data = JSON.stringify({ "id": id });
             $.ajax({
@@ -62,6 +62,6 @@
                     alert('failed');
                 }
             });
-        }
+        
     });
 });

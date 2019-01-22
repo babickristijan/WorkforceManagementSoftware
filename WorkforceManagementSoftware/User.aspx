@@ -18,6 +18,11 @@
     <link href="~/Scripts/scheduler.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+        <style>
+        .loginButton {
+            padding:6px 12px !important;
+        }
+    </style>
 </head>
 <body>
     <div class="loader">
@@ -62,9 +67,10 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" style="width:80%;">
-                        <li style="float:right;margin-top:7px;"><button type="button" class="btn btn-primary" >
-                    <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" />
-                    </button></li>
+                        <li style="float:right;margin-top:7px;">
+
+                    <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" CssClass="btn btn-primary loginButton" />
+                    </li>
                             <div class="row" style="float:right;display:none;">
                             
                         <asp:LoginName ID="LoginName1" runat="server" Font-Bold = "true" />

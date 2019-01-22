@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - DHH</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -20,6 +20,11 @@
     <link href="~/Scripts/scheduler.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+    <style>
+        .loginButton {
+            padding:6px 12px !important;
+        }
+    </style>
 
 </head>
 <body>
@@ -66,9 +71,15 @@
                         <li><a runat="server" href="~/Shifts">Smjene</a></li>
                         <li><a runat="server" href="~/Categories">Kategorije</a></li>
                         <li><a runat="server" href="~/Positions">Pozicije</a></li>
-                        <li style="float:right;margin-top:7px;"><button type="button" class="btn btn-primary" >
-                    <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" />
-                    </button></li>
+                        <li style="float:right;margin-top:7px;">
+                        <%--<button type="button" class="btn btn-primary" >--%>
+                            
+                            
+                            <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" CssClass="btn btn-primary loginButton" />
+                                
+                            
+                        <%--</button>--%>
+                        </li>
                             <div class="row" style="float:right;display:none;">
                             
                         <asp:LoginName ID="LoginName1" runat="server" Font-Bold = "true" />
